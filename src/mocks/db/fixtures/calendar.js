@@ -1,7 +1,17 @@
 export const CALENDAR_FIXTURE = {
   properties: [
-    { id: "p1", title: "Sky Dandelions Apartment", type: "Rent", image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=70" },
-    { id: "p2", title: "Bridgeland Modern House", type: "Rent", image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=600&q=70" },
+    {
+      id: "p1",
+      title: "Sky Dandelions Apartment",
+      type: "Rent",
+      image: "/images/properties/p-1.png",
+    },
+    {
+      id: "p2",
+      title: "Bridgeland Modern House",
+      type: "Rent",
+      image: "/images/properties/p-2.png",
+    },
   ],
 
   upcoming: [
@@ -15,7 +25,7 @@ export const CALENDAR_FIXTURE = {
       type: "Rent",
       badge: "Apartment",
       status: "pending",
-      image: "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=600&q=70",
+      image: "/images/properties/p-1.png",
     },
     {
       id: "b2",
@@ -27,7 +37,7 @@ export const CALENDAR_FIXTURE = {
       type: "Rent",
       badge: "Apartment",
       status: "confirmed",
-      image: "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=600&q=70",
+      image: "/images/properties/p-1.png",
     },
     {
       id: "b3",
@@ -39,7 +49,7 @@ export const CALENDAR_FIXTURE = {
       type: "Rent",
       badge: "Apartment",
       status: "declined",
-      image: "https://images.unsplash.com/photo-1484154218962-a197022b5858?auto=format&fit=crop&w=600&q=70",
+      image: "/images/properties/p-1.png",
     },
   ],
 
@@ -47,7 +57,7 @@ export const CALENDAR_FIXTURE = {
     {
       id: "o1",
       title: "Bridgeland Modern House",
-      image: "https://images.unsplash.com/photo-1449844908441-8829872d2607?auto=format&fit=crop&w=300&q=70",
+      image: "/images/properties/p-2.png",
       date: "Jan 8 ,2026",
       person: "David Wilson",
       blackout: "Jan 15-20",
@@ -56,7 +66,7 @@ export const CALENDAR_FIXTURE = {
     {
       id: "o2",
       title: "Bridgeland Modern House",
-      image: "https://images.unsplash.com/photo-1460317442991-0ec209397118?auto=format&fit=crop&w=300&q=70",
+      image: "/images/properties/p-2.png",
       date: "Jan 8 ,2026",
       person: "David Wilson",
       blackout: "Jan 15-20",
@@ -65,7 +75,7 @@ export const CALENDAR_FIXTURE = {
     {
       id: "o3",
       title: "Bridgeland Modern House",
-      image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=300&q=70",
+      image: "/images/properties/p-2.png",
       date: "Jan 8 ,2026",
       person: "David Wilson",
       blackout: "Jan 15-20",
