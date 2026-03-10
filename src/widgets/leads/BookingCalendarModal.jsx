@@ -58,16 +58,16 @@ export default function BookingCalendarModal({ open, onClose, onSubmit, isSubmit
     <LazyMotion features={domAnimation}>
       <AnimatePresence>
         {open ? (
-          <m.div className="fixed inset-0 z-[90]" {...overlayAnim}>
+          <m.div className="fixed inset-0 z-90" {...overlayAnim}>
             {/* overlay click closes */}
             <button type="button" className="absolute inset-0 bg-black/40" onClick={() => onClose?.()} />
 
-            {/* ✅ responsive wrapper */}
+            {/*  responsive wrapper */}
             <div className="relative flex min-h-full items-center justify-center px-4 py-6 sm:py-10">
               <m.div
                 className="
                   relative w-full
-                  max-w-[920px]
+                  max-w-230
                   rounded-2xl bg-white
                   shadow-[0_30px_80px_rgba(0,0,0,0.18)]
                   px-5 py-7 sm:px-10 sm:py-9
@@ -99,7 +99,7 @@ export default function BookingCalendarModal({ open, onClose, onSubmit, isSubmit
                   ))}
                 </div>
 
-                {/* ✅ tighter spacing on mobile */}
+                {/*  tighter spacing on mobile */}
                 <div className="mt-6 grid grid-cols-7 gap-y-4 sm:gap-y-6 text-center text-sm">
                   {grid.flat().map((d, idx) => {
                     const isSelected = selected === d;

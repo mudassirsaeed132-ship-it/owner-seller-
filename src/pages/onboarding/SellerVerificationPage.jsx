@@ -128,7 +128,7 @@ export default function SellerVerificationPage() {
     >
       <form
         onSubmit={handleSubmit}
-        className="mx-auto mt-1 w-full max-w-full space-y-5 sm:w-[620px]"
+        className="mx-auto mt-1 w-full max-w-full space-y-5 sm:w-155"
       >
         <div className="relative w-full">
           <label className="pointer-events-none absolute left-4 top-0 -translate-y-1/2 bg-white px-1 text-[12px] font-medium leading-none text-[#4B4B4B] sm:text-[13px]">
@@ -140,7 +140,7 @@ export default function SellerVerificationPage() {
             onChange={handleChange("profileDescription")}
             rows={4}
             placeholder="I am a"
-            className={`min-h-[104px] w-full resize-none rounded-[4px] border bg-transparent px-4 py-4 text-[15px] font-medium text-[#232323] outline-none placeholder:text-[#8A8A8A] transition sm:min-h-[106px] sm:text-[16px] ${
+            className={`min-h-26 w-full resize-none rounded-sm border bg-transparent px-4 py-4 text-[15px] font-medium text-[#232323] outline-none placeholder:text-[#8A8A8A] transition sm:min-h-26.5 sm:text-[16px] ${
               errors.profileDescription
                 ? "border-[#D56352]"
                 : "border-[#D8D8D8] focus:border-[#D56352]"
@@ -170,7 +170,7 @@ export default function SellerVerificationPage() {
           <button
             type="button"
             onClick={handleFilePick}
-            className={`flex h-[52px] w-full items-center justify-between rounded-[4px] border bg-transparent px-4 text-left transition sm:h-[54px] ${
+            className={`flex h-13 w-full items-center justify-between rounded-sm border bg-transparent px-4 text-left transition sm:h-13.5 ${
               errors.documentFileName
                 ? "border-[#D56352]"
                 : "border-[#D8D8D8]"

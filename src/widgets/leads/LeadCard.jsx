@@ -77,14 +77,14 @@ export default function LeadCard({ item, onAccept, onDecline, onViewBookings, on
           <button
             type="button"
             onClick={onAccept}
-            className="h-[56px] text-sm font-semibold text-emerald-500 hover:bg-emerald-50"
+            className="h-14 text-sm font-semibold text-emerald-500 hover:bg-emerald-50"
           >
             Accept
           </button>
           <button
             type="button"
             onClick={onDecline}
-            className="h-[56px] border-l border-slate-200 text-sm font-semibold text-red-500 hover:bg-red-50"
+            className="h-14 border-l border-slate-200 text-sm font-semibold text-red-500 hover:bg-red-50"
           >
             Decline
           </button>
@@ -93,7 +93,7 @@ export default function LeadCard({ item, onAccept, onDecline, onViewBookings, on
         <button
           type="button"
           onClick={onSchedule}
-          className="flex h-[56px] w-full items-center justify-center gap-2 border-t border-slate-200 text-sm font-semibold text-[#D06050] hover:bg-[#F6EAE8]"
+          className="flex h-14 w-full items-center justify-center gap-2 border-t border-slate-200 text-sm font-semibold text-[#D06050] hover:bg-[#F6EAE8]"
         >
           <CalendarDays size={18} />
           Schedule Viewing

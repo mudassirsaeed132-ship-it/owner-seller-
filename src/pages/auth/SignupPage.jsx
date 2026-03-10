@@ -137,7 +137,7 @@ export default function SignupPage() {
       descriptionClassName="mx-auto max-w-[620px] text-[15px] sm:text-[16px]"
       contentClassName="pt-1"
     >
-      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-full space-y-5 sm:w-[620px]">
+      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-full space-y-5 sm:w-155">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
           <AuthField
             label="First Name"
@@ -189,7 +189,7 @@ export default function SignupPage() {
           <button
             type="button"
             onClick={handleFilePick}
-            className={`flex h-[52px] w-full items-center justify-between rounded-[4px] border bg-transparent px-4 text-left transition sm:h-[54px] ${
+            className={`flex h-13 w-full items-center justify-between rounded-sm border bg-transparent px-4 text-left transition sm:h-13.5 ${
               errors.avatarFileName ? "border-[#D56352]" : "border-[#D8D8D8]"
             }`}
           >
@@ -225,7 +225,7 @@ export default function SignupPage() {
             onChange={handleChange("agree")}
             className="items-start"
           >
-            <span className="leading-[1.5]">
+            <span className="leading-normal">
               I agree to all the <span className="text-[#D56352]">Terms</span> and{" "}
               <span className="text-[#D56352]">Privacy Policies</span>
             </span>

@@ -8,7 +8,7 @@ export default function PropertiesOverviewCard({ items = [] }) {
           <img
             src={x.image}
             alt=""
-            className="h-[56px] w-[70px] rounded-xl object-cover"
+            className="h-14 w-17.5 rounded-xl object-cover"
             loading="lazy"
           />
 

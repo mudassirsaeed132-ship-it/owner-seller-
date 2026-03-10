@@ -2,7 +2,7 @@ import { ArrowLeft, X } from "lucide-react";
 
 export default function ChatHeader({ name, avatar, onClose, showBack = false }) {
   return (
-    <div className="flex h-[64px] items-center justify-between border-b border-slate-200 px-6">
+    <div className="flex h-16 items-center justify-between border-b border-slate-200 px-6">
       <div className="flex items-center gap-3">
         {showBack ? (
           <button

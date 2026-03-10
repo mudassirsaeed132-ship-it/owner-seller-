@@ -44,11 +44,11 @@ export default function ReceiptModal({ open, invoiceId, onClose }) {
     <LazyMotion features={domAnimation}>
       <AnimatePresence>
         {open ? (
-          <m.div className="fixed inset-0 z-[90] flex items-center justify-center px-4 py-8" {...overlayAnim}>
+          <m.div className="fixed inset-0 z-90 flex items-center justify-center px-4 py-8" {...overlayAnim}>
             <button type="button" className="absolute inset-0 bg-black/40" onClick={onClose} aria-label="Close" />
 
             <m.div
-              className="relative w-full max-w-[720px] rounded-2xl bg-white px-6 py-6 shadow-[0_30px_80px_rgba(0,0,0,0.18)] max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-180 rounded-2xl bg-white px-6 py-6 shadow-[0_30px_80px_rgba(0,0,0,0.18)] max-h-[90vh] overflow-y-auto"
               {...panelAnim}
               onClick={(e) => e.stopPropagation()}
               role="dialog"
@@ -66,7 +66,7 @@ export default function ReceiptModal({ open, invoiceId, onClose }) {
               <div className="text-2xl font-semibold text-slate-900">Receipt</div>
 
               {q.isLoading ? (
-                <Skeleton className="mt-6 h-[200px] rounded-2xl" />
+                <Skeleton className="mt-6 h-50 rounded-2xl" />
               ) : q.data ? (
                 <div className="mt-6 rounded-2xl border border-slate-200 p-5">
                   <div className="text-lg font-semibold text-slate-900">{q.data.title}</div>

@@ -72,7 +72,7 @@ export default function DetailsStep() {
         {listingPhotos.map((src, i) => (
           <div
             key={i}
-            className="relative h-[120px] w-[160px] overflow-hidden rounded-2xl"
+            className="relative h-30 w-40 overflow-hidden rounded-2xl"
           >
             <img
               src={src}
@@ -92,7 +92,7 @@ export default function DetailsStep() {
 
         <button
           type="button"
-          className="flex h-[120px] w-[120px] items-center justify-center rounded-2xl bg-slate-100 text-3xl text-slate-600"
+          className="flex h-30 w-30 items-center justify-center rounded-2xl bg-slate-100 text-3xl text-slate-600"
           aria-label="Add photo"
         >
           +

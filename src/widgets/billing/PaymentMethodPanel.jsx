@@ -70,7 +70,7 @@ export default function PaymentMethodPanel({ primary = "gpay", onSelectPrimary }
       {/* Button */}
       <button
         type="button"
-        className="h-[64px] w-full rounded-2xl bg-[#D06050] text-[16px] font-semibold text-white hover:bg-[#C65648]"
+        className="h-16 w-full rounded-2xl bg-[#D06050] text-[16px] font-semibold text-white hover:bg-[#C65648]"
       >
         Add Payment Method
       </button>

@@ -222,7 +222,7 @@ export const db = {
     subscription: () => state.billing.subscription,
   },
 
-  // ✅ privacy
+  //  privacy
   privacy: {
     get: () => state.privacy,
     update: (patch) => {

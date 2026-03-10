@@ -36,7 +36,7 @@ function RadioCard({ label, desc, checked, onClick }) {
     <button type="button" onClick={onClick} className="w-full text-left">
       <div className="rounded-xl border border-slate-200 bg-white px-3.5 py-4 sm:px-4">
         <div className="flex items-start gap-3">
-          <span className="mt-[2px] inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[#D06050]">
+          <span className="mt-0.5 inline-flex h-4 w-4 shrink-0 items-center justify-center rounded-full border border-[#D06050]">
             {checked ? <span className="h-2 w-2 rounded-full bg-[#D06050]" /> : null}
           </span>
 
@@ -56,7 +56,7 @@ function Toggle({ checked, onChange, ariaLabel }) {
       type="button"
       onClick={() => onChange(!checked)}
       className={cn(
-        "relative inline-flex h-[18px] w-[34px] shrink-0 items-center rounded-full transition",
+        "relative inline-flex h-4.5 w-8.5 shrink-0 items-center rounded-full transition",
         checked ? "bg-[#D06050]" : "border border-slate-400 bg-white"
       )}
       aria-label={ariaLabel}
@@ -64,8 +64,8 @@ function Toggle({ checked, onChange, ariaLabel }) {
     >
       <span
         className={cn(
-          "inline-block h-[14px] w-[14px] rounded-full transition",
-          checked ? "translate-x-[16px] bg-white" : "translate-x-[2px] bg-slate-900"
+          "inline-block h-3.5 w-3.5 rounded-full transition",
+          checked ? "translate-x-4 bg-white" : "translate-x-0.5 bg-slate-900"
         )}
       />
     </button>
@@ -77,7 +77,7 @@ function Check({ checked, onChange, label }) {
     <label className="flex cursor-pointer items-start gap-2">
       <span
         className={cn(
-          "mt-[2px] inline-flex h-[14px] w-[14px] shrink-0 items-center justify-center rounded-[4px] border",
+          "mt-0.5 inline-flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-sm border",
           checked ? "border-[#D06050] bg-[#D06050]" : "border-slate-800 bg-white"
         )}
       >
@@ -99,7 +99,7 @@ function AccessSelect({ value, onChange, icon = "lock" }) {
   const Icon = icon === "eye" ? Eye : icon === "bank" ? Landmark : Lock;
 
   return (
-    <div className="relative w-full sm:w-auto sm:min-w-[148px]">
+    <div className="relative w-full sm:w-auto sm:min-w-37">
       <div className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#D06050]">
         <Icon size={14} />
       </div>
@@ -164,9 +164,9 @@ export default function PrivacyControlsPage() {
 
   if (isLoading || !d) {
     return (
-      <div className="mx-auto w-full max-w-[1180px] px-3 pb-10 pt-5 sm:px-4 md:px-5 xl:px-0">
+      <div className="mx-auto w-full max-w-295 px-3 pb-10 pt-5 sm:px-4 md:px-5 xl:px-0">
         <div className="h-10 w-44 rounded-xl bg-slate-200/60" />
-        <div className="mt-5 h-[680px] rounded-2xl bg-slate-200/40" />
+        <div className="mt-5 h-170 rounded-2xl bg-slate-200/40" />
       </div>
     );
   }
@@ -178,7 +178,7 @@ export default function PrivacyControlsPage() {
 
   return (
     <div className="w-full overflow-x-hidden">
-      <div className="mx-auto w-full max-w-[1180px] px-3 pb-10 pt-5 sm:px-4 md:px-5 xl:px-0">
+      <div className="mx-auto w-full max-w-295 px-3 pb-10 pt-5 sm:px-4 md:px-5 xl:px-0">
         <div className="flex items-center gap-2.5 sm:gap-3">
           <button
             type="button"

@@ -9,7 +9,7 @@ export default function BookingRequestCard({ item, onAccept, onDecline, isBusy }
     <Card className="overflow-hidden rounded-2xl border border-slate-100 bg-white">
       <div className="flex flex-col gap-4 p-4 sm:flex-row sm:items-start sm:gap-6">
         {/* image */}
-        <div className="relative h-[150px] w-full overflow-hidden rounded-2xl sm:h-[140px] sm:w-[190px] sm:shrink-0">
+        <div className="relative h-37.5 w-full overflow-hidden rounded-2xl sm:h-35 sm:w-47.5 sm:shrink-0">
           <img src={item.image} alt="" className="h-full w-full object-cover" loading="lazy" />
           <div className="absolute bottom-3 left-3">
             <Badge variant="brand" className="rounded-xl px-3 py-1 text-[11px]">
@@ -59,7 +59,7 @@ export default function BookingRequestCard({ item, onAccept, onDecline, isBusy }
             type="button"
             disabled={Boolean(isBusy)}
             onClick={onAccept}
-            className="h-[52px] text-sm font-semibold text-emerald-500 hover:bg-emerald-50 disabled:opacity-60"
+            className="h-13 text-sm font-semibold text-emerald-500 hover:bg-emerald-50 disabled:opacity-60"
           >
             Accept
           </button>
@@ -67,7 +67,7 @@ export default function BookingRequestCard({ item, onAccept, onDecline, isBusy }
             type="button"
             disabled={Boolean(isBusy)}
             onClick={onDecline}
-            className="h-[52px] border-l border-slate-200 text-sm font-semibold text-red-500 hover:bg-red-50 disabled:opacity-60"
+            className="h-13 border-l border-slate-200 text-sm font-semibold text-red-500 hover:bg-red-50 disabled:opacity-60"
           >
             Decline
           </button>
@@ -76,7 +76,7 @@ export default function BookingRequestCard({ item, onAccept, onDecline, isBusy }
         <div className="border-t border-slate-200">
           <div
             className={[
-              "flex h-[52px] items-center justify-center text-sm font-semibold",
+              "flex h-13 items-center justify-center text-sm font-semibold",
               status === "confirmed" ? "text-emerald-500" : "text-red-500",
             ].join(" ")}
           >

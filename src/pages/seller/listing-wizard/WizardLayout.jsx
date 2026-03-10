@@ -19,10 +19,10 @@ export default function WizardLayout() {
 
   return (
     <div className="px-6 py-8 lg:px-10 lg:py-10">
-      <div className="mx-auto max-w-[980px]">
+      <div className="mx-auto max-w-245">
         {isDetailsFlow ? (
           <>
-            <div className="mx-auto max-w-[860px] text-left">
+            <div className="mx-auto max-w-215 text-left">
               <h1 className="text-4xl font-semibold text-[#D06050]">
                 Create New Listing
               </h1>
@@ -31,7 +31,7 @@ export default function WizardLayout() {
               </div>
             </div>
 
-            <div className="mx-auto mt-8 max-w-[860px]">
+            <div className="mx-auto mt-8 max-w-215">
               <Stepper
                 activeIndex={activeIndex}
                 steps={[
@@ -49,7 +49,7 @@ export default function WizardLayout() {
 
         <div
           className={[
-            "mx-auto max-w-[860px]",
+            "mx-auto max-w-215",
             isDetailsFlow ? "mt-8" : "mt-2",
           ].join(" ")}
         >

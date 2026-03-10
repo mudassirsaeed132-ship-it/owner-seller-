@@ -7,7 +7,7 @@ export default function StatusPill({ status, variant, className = "" }) {
   return (
     <span
       className={cn(
-        "inline-flex h-[30px] items-center justify-center rounded-[10px] px-3 text-[12px] font-medium leading-none",
+        "inline-flex h-7.5 items-center justify-center rounded-[10px] px-3 text-[12px] font-medium leading-none",
         isVerified ? "bg-[#F6EAE8] text-[#D06050]" : "border border-[#D06050] bg-white text-[#D06050]",
         className
       )}

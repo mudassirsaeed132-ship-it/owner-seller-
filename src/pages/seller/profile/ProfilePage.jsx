@@ -70,24 +70,24 @@ export default function ProfilePage() {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         <h1 className="text-4xl font-semibold text-[#D06050]">Profile</h1>
 
         <div className="mt-6">
           {meQ.isLoading ? (
-            <Skeleton className="h-[520px] rounded-2xl" />
+            <Skeleton className="h-130 rounded-2xl" />
           ) : (
             <ProfileCardLayout
               left={
                 <>
                   <div className="flex w-full justify-center lg:justify-start">
-                    <div className="h-[180px] w-[180px] overflow-hidden rounded-full bg-[#E9D2B7]">
+                    <div className="h-45 w-45 overflow-hidden rounded-full bg-[#E9D2B7]">
                       <img src={avatarSvg} alt="Profile" className="h-full w-full object-cover" />
                     </div>
                   </div>
 
                   <Button
-                    className="mt-8 h-12 w-[190px] rounded-xl bg-[#D06050] text-white hover:bg-[#C65648]"
+                    className="mt-8 h-12 w-47.5 rounded-xl bg-[#D06050] text-white hover:bg-[#C65648]"
                     onClick={() => navigate("/seller/profile/edit")}
                   >
                     <Pencil size={16} />

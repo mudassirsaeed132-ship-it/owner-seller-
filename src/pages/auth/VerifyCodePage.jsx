@@ -101,7 +101,7 @@ export default function VerifyCodePage() {
       descriptionClassName="max-w-[620px] text-[15px] sm:text-[16px]"
       contentClassName="pt-1"
     >
-      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-full space-y-5 sm:w-[620px]">
+      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-full space-y-5 sm:w-155">
         <AuthField
           label="Enter Code"
           type={showCode ? "text" : "password"}

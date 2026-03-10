@@ -39,11 +39,11 @@ export default function InvoiceGrid({ invoices = [] }) {
         ))}
       </div>
 
-      <Suspense fallback={<Skeleton className="mt-8 h-[180px] rounded-2xl" />}>
+      <Suspense fallback={<Skeleton className="mt-8 h-45 rounded-2xl" />}>
         <ReceiptModal open={Boolean(receiptId)} invoiceId={receiptId} onClose={() => setReceiptId(null)} />
       </Suspense>
 
-      <Suspense fallback={<Skeleton className="mt-8 h-[180px] rounded-2xl" />}>
+      <Suspense fallback={<Skeleton className="mt-8 h-45 rounded-2xl" />}>
         <PdfViewerModal open={Boolean(pdfId)} invoiceId={pdfId} onClose={() => setPdfId(null)} />
       </Suspense>
     </div>

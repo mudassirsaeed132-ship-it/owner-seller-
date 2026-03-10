@@ -53,15 +53,15 @@ export default function PaymentsInvoicesPage() {
   const primary = methodsQ.data?.primary || "gpay";
   const subscription = subQ.data;
 
-  // ✅ Subscription tab pe outer rounded container NAHI
+  //  Subscription tab pe outer rounded container NAHI
   const bodyWrapClass = isSubscription
     ? "mt-6"
     : "mt-6 rounded-2xl border border-slate-200 bg-white px-6 py-7 sm:px-8 sm:py-8";
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      {/* ✅ width ko figma jaisa tight */}
-      <div className="mx-auto max-w-[1280px]">
+      {/* width ko figma jaisa tight */}
+      <div className="mx-auto max-w-7xl">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-3">
             <button
@@ -75,7 +75,7 @@ export default function PaymentsInvoicesPage() {
             <h1 className="text-4xl font-semibold text-[#D06050]">Payment &amp; Invoices</h1>
           </div>
 
-          <div className="relative w-[220px]">
+          <div className="relative w-55">
             <select
               value={tab}
               onChange={(e) => setSp({ tab: e.target.value })}
@@ -94,18 +94,18 @@ export default function PaymentsInvoicesPage() {
         <div className={bodyWrapClass}>
           {tab === "invoices" ? (
             invoicesQ.isLoading ? (
-              <Skeleton className="h-[520px] rounded-2xl" />
+              <Skeleton className="h-130 rounded-2xl" />
             ) : (
               <InvoiceGrid invoices={invoices} />
             )
           ) : tab === "methods" ? (
             methodsQ.isLoading ? (
-              <Skeleton className="h-[520px] rounded-2xl" />
+              <Skeleton className="h-130 rounded-2xl" />
             ) : (
               <PaymentMethodPanel primary={primary} onSelectPrimary={(m) => setPrimaryM.mutate(m)} />
             )
           ) : subQ.isLoading ? (
-            <Skeleton className="h-[520px] rounded-2xl" />
+            <Skeleton className="h-130 rounded-2xl" />
           ) : (
             <SubscriptionPanel subscription={subscription} />
           )}

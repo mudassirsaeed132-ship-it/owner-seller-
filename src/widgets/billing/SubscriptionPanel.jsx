@@ -7,7 +7,7 @@ export default function SubscriptionPanel({ subscription }) {
   return (
     <div className="grid gap-6 lg:grid-cols-[420px_minmax(0,1fr)] lg:gap-10 lg:items-stretch">
       {/* LEFT */}
-      <div className="h-full rounded-2xl bg-white p-6 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,0.04)] lg:min-h-[520px]">
+      <div className="h-full rounded-2xl bg-white p-6 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,0.04)] lg:min-h-130">
         <div className="overflow-hidden rounded-2xl bg-white shadow-[0_18px_50px_rgba(0,0,0,0.08)]">
           <div className="flex items-start justify-between bg-[#F6EAE8] px-7 py-5">
             <div>
@@ -34,7 +34,7 @@ export default function SubscriptionPanel({ subscription }) {
       </div>
 
       {/* RIGHT */}
-      <div className="h-full rounded-2xl bg-white p-6 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,0.04)] lg:min-h-[520px]">
+      <div className="h-full rounded-2xl bg-white p-6 sm:p-8 shadow-[0_18px_50px_rgba(0,0,0,0.04)] lg:min-h-130">
         <div className="flex h-full flex-col">
           <div className="text-[18px] font-medium text-slate-900">Payment Method</div>
 
@@ -60,14 +60,14 @@ export default function SubscriptionPanel({ subscription }) {
           <div className="mt-8 grid gap-6 sm:grid-cols-2">
             <button
               type="button"
-              className="h-[46px] rounded-[12px] bg-[#D06050] text-[16px] font-semibold text-white transition-colors hover:bg-[#C65648]"
+              className="h-11.5 rounded-xl bg-[#D06050] text-[16px] font-semibold text-white transition-colors hover:bg-[#C65648]"
             >
               Change Plan
             </button>
 
             <button
               type="button"
-              className="h-[46px] rounded-[12px] border border-[#D06050] bg-white text-[16px] font-semibold text-[#D06050] transition-colors hover:bg-[rgba(208,96,80,0.06)]"
+              className="h-11.5 rounded-xl border border-[#D06050] bg-white text-[16px] font-semibold text-[#D06050] transition-colors hover:bg-[rgba(208,96,80,0.06)]"
             >
               Add Payment Method
             </button>

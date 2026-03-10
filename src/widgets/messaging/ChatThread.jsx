@@ -30,7 +30,7 @@ export default function ChatThread({ title, messages = [] }) {
                   loading="lazy"
                 />
                 <div className="overflow-hidden rounded-2xl bg-slate-100 p-3">
-                  <img src={m.image} alt="" className="h-[260px] w-[260px] rounded-2xl object-cover" loading="lazy" />
+                  <img src={m.image} alt="" className="h-65 w-65 rounded-2xl object-cover" loading="lazy" />
                 </div>
               </div>
             );
@@ -49,7 +49,7 @@ export default function ChatThread({ title, messages = [] }) {
 
               <div
                 className={cn(
-                  "max-w-[520px] rounded-2xl px-5 py-4 text-sm",
+                  "max-w-130 rounded-2xl px-5 py-4 text-sm",
                   mine ? "bg-[#F6EAE8] text-[#D06050]" : "bg-slate-100 text-slate-600"
                 )}
               >

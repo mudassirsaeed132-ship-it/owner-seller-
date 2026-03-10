@@ -89,7 +89,7 @@ export default function SetPasswordPage() {
       descriptionClassName="max-w-[620px] text-[15px] sm:text-[16px]"
       contentClassName="pt-1"
     >
-      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-full space-y-6 sm:w-[620px]">
+      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-full space-y-6 sm:w-155">
         <AuthPasswordField
           label="Create Password"
           autoComplete="new-password"

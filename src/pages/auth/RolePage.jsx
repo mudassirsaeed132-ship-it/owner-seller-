@@ -59,7 +59,7 @@ export default function RolePage() {
                 transition={{ duration: 0.18 }}
                 className={cn(
                   "mx-auto flex w-full max-w-60 flex-col items-center justify-center rounded-[20px] border bg-white px-8 text-center",
-                  "h-[214px] sm:h-57 lg:h-[248px]",
+                  "h-53.5 sm:h-57 lg:h-62",
                   isActive && role.key === "seller"
                     ? "border-[#D56352]"
                     : "border-[#B8B8B8]"
@@ -68,7 +68,7 @@ export default function RolePage() {
                 <img
                   src={role.image}
                   alt={role.title}
-                  className="mb-4 h-auto w-[92px] object-contain sm:w-[100px] lg:w-[110px]"
+                  className="mb-4 h-auto w-23 object-contain sm:w-25 lg:w-27.5"
                 />
                 <span className="text-[15px] font-semibold text-[#232323] sm:text-[16px] lg:text-[17px]">
                   {role.title}
@@ -81,7 +81,7 @@ export default function RolePage() {
         <AuthSubmitButton
           type="button"
           onClick={handleContinue}
-          className="mt-18 h-[50px] max-w-[460px] text-[16px] sm:mt-20 sm:max-w-[500px] sm:text-[17px]"
+          className="mt-18 h-12.5 max-w-115 text-[16px] sm:mt-20 sm:max-w-125 sm:text-[17px]"
           disabled={selectedRole !== "seller"}
         >
           Continue

@@ -88,7 +88,7 @@ export default function LoginPage() {
       descriptionClassName="text-[15px] sm:text-[16px]"
       contentClassName="pt-1"
     >
-      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-[540px] space-y-6">
+      <form onSubmit={handleSubmit} className="mx-auto mt-1 w-full max-w-135 space-y-6">
         <AuthField
           label="Email"
           type="email"

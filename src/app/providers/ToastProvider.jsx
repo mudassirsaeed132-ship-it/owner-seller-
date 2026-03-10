@@ -25,7 +25,7 @@ export default function ToastProvider({ children }) {
   return (
     <ToastCtx.Provider value={api}>
       {children}
-      <div className="fixed right-4 top-4 z-[100] space-y-2">
+      <div className="fixed right-4 top-4 z-100 space-y-2">
         {toasts.map((t) => (
           <div
             key={t.id}

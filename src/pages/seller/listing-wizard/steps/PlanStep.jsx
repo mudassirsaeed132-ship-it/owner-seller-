@@ -34,7 +34,7 @@ function PlanCard({ selected, titleTop, title, price, bullets, disabledBullets }
         <ul className="mt-4 space-y-2 text-sm">
           {bullets.map((b) => (
             <li key={b} className="flex items-start gap-3">
-              <Check size={18} className="mt-[2px] text-emerald-500" />
+              <Check size={18} className="mt-0.5 text-emerald-500" />
               <span className="text-slate-700">{b}</span>
             </li>
           ))}
@@ -44,7 +44,7 @@ function PlanCard({ selected, titleTop, title, price, bullets, disabledBullets }
           <ul className="mt-4 space-y-2 text-sm">
             {disabledBullets.map((b) => (
               <li key={b} className="flex items-start gap-3 text-slate-400">
-                <span className="mt-[6px] inline-block h-[2px] w-[10px] bg-slate-300" />
+                <span className="mt-1.5 inline-block h-0.5 w-2.5 bg-slate-300" />
                 <span>{b}</span>
               </li>
             ))}
@@ -197,7 +197,7 @@ export default function PlanStep() {
 
         <div className="mt-10 flex justify-center">
           <Button
-            className="h-14 w-full max-w-[720px] rounded-2xl"
+            className="h-14 w-full max-w-180 rounded-2xl"
             onClick={() => setAddonsOpen(true)}
           >
             Continue with Free Starter
@@ -213,7 +213,7 @@ export default function PlanStep() {
         open={addonsOpen}
         onClose={() => setAddonsOpen(false)}
         title="Choose Add-ons"
-        className="max-w-[620px]"
+        className="max-w-155"
       >
         <div className="space-y-3">
           {addonOptions.map((x) => {
@@ -263,7 +263,7 @@ export default function PlanStep() {
         open={paymentOpen}
         onClose={() => setPaymentOpen(false)}
         title="Payment Method"
-        className="max-w-[620px]"
+        className="max-w-155"
       >
         <div className="space-y-3">
           {paymentOptions.map((item) => {

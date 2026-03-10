@@ -16,7 +16,7 @@ export default function CalendarPage() {
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
 
-  // ✅ safe key (won’t crash if queryKeys.calendar missing)
+  //  safe key (won’t crash if queryKeys.calendar missing)
   const DASH_KEY = queryKeys?.calendar?.dashboard ? queryKeys.calendar.dashboard() : ["calendar", "dashboard"];
 
   const dashQ = useQuery({
@@ -47,7 +47,7 @@ export default function CalendarPage() {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         {/* header row */}
         <div className="flex items-center justify-between gap-4">
           <h1 className="text-4xl font-semibold text-[#D06050]">Calendar &amp; Bookings</h1>
@@ -68,11 +68,11 @@ export default function CalendarPage() {
               </button>
             </div>
 
-            {/* ✅ loading */}
+            {/*  loading */}
             {dashQ.isLoading ? (
               <div className="space-y-6">
-                <Skeleton className="h-[220px] rounded-2xl" />
-                <Skeleton className="h-[220px] rounded-2xl" />
+                <Skeleton className="h-55 rounded-2xl" />
+                <Skeleton className="h-55 rounded-2xl" />
               </div>
             ) : dashQ.isError ? (
               <Card className="rounded-2xl p-5 text-sm text-slate-600">
@@ -100,7 +100,7 @@ export default function CalendarPage() {
             <div className="mb-3 text-base font-semibold text-slate-900">Properties Overview</div>
 
             {dashQ.isLoading ? (
-              <Skeleton className="h-[260px] rounded-2xl" />
+              <Skeleton className="h-65 rounded-2xl" />
             ) : (
               <Card className="rounded-2xl p-4">
                 {overview.length ? (

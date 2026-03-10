@@ -18,7 +18,7 @@ export default function FilePickerField({ label, value, onPick, className = "" }
         type="button"
         onClick={() => ref.current?.click()}
         className={[
-          "w-full h-[52px] rounded-[6px] border border-[#E5E7EB] px-4 text-left",
+          "w-full h-13 rounded-md border border-[#E5E7EB] px-4 text-left",
           "flex items-center justify-between",
           "focus:outline-none focus:ring-2 focus:ring-[#D66355]/20 focus:border-[#D66355]/40",
         ].join(" ")}

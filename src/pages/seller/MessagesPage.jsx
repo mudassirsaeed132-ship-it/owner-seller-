@@ -67,11 +67,11 @@ export default function MessagesPage() {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         <h1 className="text-4xl font-semibold text-[#D06050]">Inbox</h1>
 
         <Card className="mt-6 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
-          <div className="grid min-h-[640px] grid-cols-1 lg:grid-cols-[420px_1fr]">
+          <div className="grid min-h-160 grid-cols-1 lg:grid-cols-[420px_1fr]">
             {/* LEFT */}
             <div className={`${isMobile && mobileView === "chat" ? "hidden" : "block"} border-r border-slate-200`}>
               <ConversationList tab={tab} onTabChange={setTab} items={items} activeId={activeId} onSelect={onSelect} />

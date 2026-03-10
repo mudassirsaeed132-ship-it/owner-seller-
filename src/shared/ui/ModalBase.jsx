@@ -64,7 +64,7 @@ export default function ModalBase({ open, onClose, title, children, className })
   if (!open) return null;
 
   return createPortal(
-    <div aria-labelledby={id} role="dialog" aria-modal="true" className="fixed inset-0 z-[60]">
+    <div aria-labelledby={id} role="dialog" aria-modal="true" className="fixed inset-0 z-60">
       <button
         type="button"
         aria-label="Close modal"
@@ -72,12 +72,12 @@ export default function ModalBase({ open, onClose, title, children, className })
         onClick={() => onClose?.()}
       />
 
-      <div className="relative z-[1] flex min-h-full items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
+      <div className="relative z-1 flex min-h-full items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
         <div
           ref={panelRef}
           onClick={(e) => e.stopPropagation()}
           className={cn(
-            "relative w-full max-w-[680px] max-h-[85vh] overflow-y-auto rounded-[24px] bg-white px-5 py-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-7",
+            "relative w-full max-w-170 max-h-[85vh] overflow-y-auto rounded-3xl bg-white px-5 py-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-7",
             className
           )}
         >

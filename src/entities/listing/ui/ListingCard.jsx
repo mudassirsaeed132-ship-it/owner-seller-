@@ -8,7 +8,7 @@ export default function ListingCard({ item, onDelete }) {
   return (
     <Card className="overflow-hidden rounded-2xl">
       <div className="relative">
-        <img src={item.image} alt={item.title} className="h-[190px] w-full object-cover" loading="lazy" />
+        <img src={item.image} alt={item.title} className="h-47.5 w-full object-cover" loading="lazy" />
 
         <button
           type="button"

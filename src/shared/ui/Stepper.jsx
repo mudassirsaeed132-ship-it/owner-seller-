@@ -6,9 +6,9 @@ export default function Stepper({ steps = [], activeIndex = 0, className }) {
   return (
     <div className={cn("w-full", className)}>
       <div className="relative">
-        <div className="absolute left-0 right-0 top-4 h-[2px] bg-slate-200" />
+        <div className="absolute left-0 right-0 top-4 h-0.5 bg-slate-200" />
         <div
-          className="absolute left-0 top-4 h-[2px] bg-[#D06050]"
+          className="absolute left-0 top-4 h-0.5 bg-[#D06050]"
           style={{ width: `${(activeIndex / Math.max(steps.length - 1, 1)) * 100}%` }}
         />
 

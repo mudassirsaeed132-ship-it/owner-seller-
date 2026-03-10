@@ -16,7 +16,7 @@ export default function Select({
       <select
         {...props}
         className={cn(
-          // ✅ no forced width here — parent wrapper controls width
+          //  no forced width here — parent wrapper controls width
           "h-11 w-full appearance-none rounded-xl border border-slate-200 bg-white px-4 pr-10 text-[14px] font-medium text-slate-700 shadow-sm outline-none",
           "focus:border-[#D06050]/50 focus:ring-2 focus:ring-[#D06050]/15",
           selectClassName

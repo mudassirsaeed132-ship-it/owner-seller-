@@ -125,7 +125,7 @@ export default function DashboardPage() {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         <div className="text-sm text-slate-700">Hi Jane 👋</div>
 
         <h1 className="mt-2 text-4xl font-semibold text-slate-900">

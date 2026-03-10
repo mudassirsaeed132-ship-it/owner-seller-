@@ -36,7 +36,7 @@ const socialLinks = [
 export default function SellerFooter() {
   return (
     <footer className="w-full overflow-x-hidden bg-[#F7EAE8]">
-      <div className="mx-auto w-full max-w-[1600px] px-4 py-10 sm:px-6 sm:py-12 md:px-8 lg:px-10 xl:px-16">
+      <div className="mx-auto w-full max-w-400 px-4 py-10 sm:px-6 sm:py-12 md:px-8 lg:px-10 xl:px-16">
         <div className="grid min-w-0 grid-cols-1 items-center gap-8 lg:grid-cols-[1.15fr_0.9fr_0.95fr] lg:gap-10 xl:gap-14">
           <div className="min-w-0 text-center lg:text-left">
             <h2 className="text-[24px] font-semibold leading-[1.35] text-[#D06050]">
@@ -51,7 +51,7 @@ export default function SellerFooter() {
             <img
               src={phone}
               alt="Real Estate mobile app"
-              className="block h-auto w-[132px] max-w-full border-0 outline-none shadow-none ring-0 sm:w-[150px] md:w-[170px] lg:w-[185px]"
+              className="block h-auto w-33 max-w-full border-0 outline-none shadow-none ring-0 sm:w-37.5 md:w-42.5 lg:w-46.25"
               loading="lazy"
             />
           </div>
@@ -61,7 +61,7 @@ export default function SellerFooter() {
               <img
                 src={gp}
                 alt="Google Play"
-                className="block h-auto w-[112px] max-w-full sm:w-[118px] md:w-[126px]"
+                className="block h-auto w-28 max-w-full sm:w-29.5 md:w-31.5"
                 loading="lazy"
               />
             </a>
@@ -70,7 +70,7 @@ export default function SellerFooter() {
               <img
                 src={ag}
                 alt="AppGallery"
-                className="block h-auto w-[112px] max-w-full sm:w-[118px] md:w-[126px]"
+                className="block h-auto w-28 max-w-full sm:w-29.5 md:w-31.5"
                 loading="lazy"
               />
             </a>
@@ -89,7 +89,7 @@ export default function SellerFooter() {
                   <li key={item} className="min-w-0">
                     <a
                       href="#"
-                      className="block break-words text-[16px] leading-[1.35] text-[#D06050] transition hover:opacity-80"
+                      className="block wrap-break-word text-[16px] leading-[1.35] text-[#D06050] transition hover:opacity-80"
                     >
                       {item}
                     </a>
@@ -110,7 +110,7 @@ export default function SellerFooter() {
                   key={item.label}
                   href="#"
                   aria-label={item.label}
-                  className="inline-flex h-[42px] w-[42px] shrink-0 items-center justify-center rounded-full border border-black/55 bg-transparent transition hover:bg-white/40 sm:h-[44px] sm:w-[44px]"
+                  className="inline-flex h-10.5 w-10.5 shrink-0 items-center justify-center rounded-full border border-black/55 bg-transparent transition hover:bg-white/40 sm:h-11 sm:w-11"
                 >
                   <img
                     src={item.icon}
@@ -126,7 +126,7 @@ export default function SellerFooter() {
       </div>
 
       <div className="w-full bg-[#D06050]">
-        <div className="mx-auto flex h-[54px] w-full max-w-[1600px] items-center justify-center px-4 text-center text-[14px] font-medium text-white sm:h-[60px] sm:px-6 sm:text-[15px] md:justify-end md:px-8 lg:px-10 xl:px-16">
+        <div className="mx-auto flex h-13.5 w-full max-w-400 items-center justify-center px-4 text-center text-[14px] font-medium text-white sm:h-15 sm:px-6 sm:text-[15px] md:justify-end md:px-8 lg:px-10 xl:px-16">
           © Real state Copyrights
         </div>
       </div>

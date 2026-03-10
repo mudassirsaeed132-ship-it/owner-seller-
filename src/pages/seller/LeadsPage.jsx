@@ -46,12 +46,12 @@ export default function LeadsPage() {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <h1 className="text-4xl font-semibold text-[#D06050]">Leads &amp; Applications</h1>
 
           {/* dropdown */}
-          <div className="relative w-[180px]">
+          <div className="relative w-45">
             <select
               value={type}
               onChange={(e) => setType(e.target.value)}
@@ -70,8 +70,8 @@ export default function LeadsPage() {
         <div className="mt-6 space-y-6">
           {listQ.isLoading ? (
             <>
-              <Skeleton className="h-[240px] rounded-2xl" />
-              <Skeleton className="h-[240px] rounded-2xl" />
+              <Skeleton className="h-60 rounded-2xl" />
+              <Skeleton className="h-60 rounded-2xl" />
             </>
           ) : items.length ? (
             items.map((it) => (

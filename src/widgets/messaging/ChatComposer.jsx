@@ -18,7 +18,7 @@ export default function ChatComposer({ onSend, isSending }) {
           value={value}
           onChange={(e) => setValue(e.target.value)}
           placeholder="Write your message"
-          className="h-[56px] w-full rounded-2xl bg-[#F6EAE8] px-6 pr-[96px] text-sm text-slate-700 outline-none placeholder:text-slate-400"
+          className="h-14 w-full rounded-2xl bg-[#F6EAE8] px-6 pr-24 text-sm text-slate-700 outline-none placeholder:text-slate-400"
           onKeyDown={(e) => {
             if (e.key === "Enter") send();
           }}

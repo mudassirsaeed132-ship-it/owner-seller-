@@ -25,9 +25,9 @@ function TopPill({ label, open, onToggle }) {
       onClick={onToggle}
       aria-expanded={open}
       className={cn(
-        // ✅ IMPORTANT: no fixed width — fit-content like Figma
+        //  IMPORTANT: no fixed width — fit-content like Figma
         "inline-flex w-auto items-center gap-2 rounded-xl border border-slate-200 bg-white px-5",
-        "h-[44px] text-[14px] font-medium",
+        "h-11 text-[14px] font-medium",
         "shadow-[0_1px_0_rgba(15,23,42,0.02)]"
       )}
       style={{ color: ACCENT }}
@@ -61,7 +61,7 @@ function StatusBadge({ variant, children }) {
 
 function UploadRow({ title, subtitle, onUpload }) {
   return (
-    <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-6 py-[18px]">
+    <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-6 py-4.5">
       <div className="min-w-0">
         <div className="truncate text-[16px] font-medium text-slate-900">{title}</div>
         <div className="mt-1 truncate text-[14px] text-slate-500">{subtitle}</div>
@@ -70,7 +70,7 @@ function UploadRow({ title, subtitle, onUpload }) {
       <button
         type="button"
         onClick={onUpload}
-        className="ml-6 inline-flex h-[40px] w-[40px] items-center justify-center rounded-xl border border-slate-200 bg-white"
+        className="ml-6 inline-flex h-10 w-10 items-center justify-center rounded-xl border border-slate-200 bg-white"
         aria-label={`Upload ${title}`}
       >
         <Upload size={18} className="text-slate-900" />
@@ -81,7 +81,7 @@ function UploadRow({ title, subtitle, onUpload }) {
 
 function StatusRow({ title, subtitle, status }) {
   return (
-    <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-6 py-[18px]">
+    <div className="flex items-center justify-between rounded-xl border border-slate-200 bg-white px-6 py-4.5">
       <div className="min-w-0">
         <div className="truncate text-[16px] font-medium text-slate-900">{title}</div>
         <div className="mt-1 truncate text-[14px] text-slate-500">{subtitle}</div>
@@ -135,7 +135,7 @@ export default function DocumentsStatusPage() {
     []
   );
 
-  // ✅ Figma flow: status screen title is different
+  // Figma flow: status screen title is different
   const pageTitle = tab === "uploads" ? "Documents & Status" : "Payment & Invoices";
   const pillLabel = tab === "uploads" ? "Uploads" : "Status";
 
@@ -149,7 +149,7 @@ export default function DocumentsStatusPage() {
 
   return (
     <div className="w-full bg-[#F6F6F6]">
-      <div className="mx-auto w-full max-w-[1220px] px-4 pb-24 pt-8 sm:px-6 lg:px-8">
+      <div className="mx-auto w-full max-w-305 px-4 pb-24 pt-8 sm:px-6 lg:px-8">
         {/* Header row */}
         <div className="flex items-center justify-between gap-4">
           <button
@@ -164,12 +164,12 @@ export default function DocumentsStatusPage() {
             </h1>
           </button>
 
-          {/* ✅ top-right pill (short like UI) */}
+          {/* top-right pill (short like UI) */}
           <div className="relative" ref={menuRef}>
             <TopPill label={pillLabel} open={menuOpen} onToggle={() => setMenuOpen((v) => !v)} />
 
             {menuOpen ? (
-              <div className="absolute right-0 top-[52px] z-20 w-[180px] overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
+              <div className="absolute right-0 top-13 z-20 w-45 overflow-hidden rounded-xl border border-slate-200 bg-white shadow-lg">
                 <button
                   type="button"
                   onClick={() => switchTab("uploads")}
@@ -215,7 +215,7 @@ export default function DocumentsStatusPage() {
               <div className="mt-6">
                 <button
                   type="button"
-                  className="h-[62px] w-full rounded-2xl text-[15px] font-semibold text-white"
+                  className="h-15.5 w-full rounded-2xl text-[15px] font-semibold text-white"
                   style={{ background: ACCENT }}
                 >
                   Add Payment Method
@@ -234,7 +234,7 @@ export default function DocumentsStatusPage() {
                 ))}
               </div>
 
-              {/* ✅ keep bottom spacing like UI */}
+              {/*  keep bottom spacing like UI */}
               <div className="h-6" />
             </>
           )}

@@ -67,23 +67,23 @@ export default function EditProfilePage() {
 
   return (
     <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         <h1 className="text-4xl font-semibold text-[#D06050]">Profile</h1>
 
         <div className="mt-6">
           {meQ.isLoading ? (
-            <Skeleton className="h-[620px] rounded-2xl" />
+            <Skeleton className="h-155 rounded-2xl" />
           ) : (
             <ProfileCardLayout
               left={
                 <>
                   <div className="flex w-full justify-center lg:justify-start">
-                    <div className="h-[180px] w-[180px] overflow-hidden rounded-full bg-[#E9D2B7]">
+                    <div className="h-45 w-45 overflow-hidden rounded-full bg-[#E9D2B7]">
                       <img src={avatarSvg} alt="Profile" className="h-full w-full object-cover" />
                     </div>
                   </div>
 
-                  <Button variant="outline" className="mt-8 h-11 w-[170px] rounded-xl" type="button">
+                  <Button variant="outline" className="mt-8 h-11 w-42.5 rounded-xl" type="button">
                     <Upload size={16} />
                     Change Photo
                   </Button>

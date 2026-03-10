@@ -18,7 +18,7 @@ export default function LocationStep() {
       </div>
 
       <div className="mt-5 overflow-hidden rounded-2xl border border-slate-200 bg-slate-50">
-        <div className="relative h-[320px] w-full">
+        <div className="relative h-80 w-full">
           <div className="absolute inset-0 bg-[linear-gradient(135deg,#f3f4f6_0%,#ffffff_55%,#f1f5f9_100%)]" />
           <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2">
             <div className="relative">

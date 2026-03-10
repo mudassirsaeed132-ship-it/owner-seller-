@@ -235,7 +235,7 @@ export default function AvailabilityPricingModal({
       <AnimatePresence>
         {open ? (
           <m.div
-            className="fixed inset-0 z-[80] overflow-y-auto bg-black/40 px-4 py-4 sm:px-6 sm:py-6"
+            className="fixed inset-0 z-80 overflow-y-auto bg-black/40 px-4 py-4 sm:px-6 sm:py-6"
             {...overlayAnim}
             onMouseDown={(e) => {
               if (e.target === e.currentTarget) onClose?.();
@@ -243,7 +243,7 @@ export default function AvailabilityPricingModal({
           >
             <div className="flex min-h-full items-start justify-center">
               <m.div
-                className="relative mt-4 w-full max-w-[860px] rounded-[24px] bg-white px-5 py-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:mt-8 sm:px-8 sm:py-7 lg:px-9 lg:py-8 max-h-[88vh] overflow-y-auto"
+                className="relative mt-4 w-full max-w-215 rounded-3xl bg-white px-5 py-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:mt-8 sm:px-8 sm:py-7 lg:px-9 lg:py-8 max-h-[88vh] overflow-y-auto"
                 {...panelAnim}
                 role="dialog"
                 aria-modal="true"

@@ -71,7 +71,7 @@ export default function ListingsPage() {
 
   return (
     <div className="px-6 py-10 lg:px-10">
-      <div className="mx-auto max-w-[1180px]">
+      <div className="mx-auto max-w-295">
         <h1 className="text-4xl font-semibold text-[#D06050]">Listings</h1>
 
         <div className="mt-8 grid gap-8 md:grid-cols-2 xl:grid-cols-3">
