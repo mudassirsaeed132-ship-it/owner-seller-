@@ -51,7 +51,7 @@ function SidebarItemIcon({ item, isActive }) {
           src={item.image}
           alt=""
           className={cn(
-            "h-[18px] w-[18px] object-contain transition xl:h-[19px] xl:w-[19px]",
+            "h-4.5 w-4.5 object-contain transition xl:h-4.75 xl:w-4.75",
             isActive ? "brightness-0 invert" : "opacity-70"
           )}
           loading="lazy"
@@ -83,14 +83,14 @@ export default function Sidebar({ onNavigate, mobile = false, className = "" }) 
         "bg-white",
         mobile
           ? "h-full w-full"
-          : "sticky top-0 h-screen w-[280px] border-r border-slate-200 xl:w-[300px] 2xl:w-[320px]",
+          : "sticky top-0 h-screen w-70 border-r border-slate-200 xl:w-75 2xl:w-[320px]",
         className
       )}
     >
       <div
         className={cn(
           "flex items-center justify-center border-b border-slate-200",
-          mobile ? "h-[88px] px-5" : "h-[78px] px-5 sm:h-[84px] xl:px-6"
+          mobile ? "h-22 px-5" : "h-19.5 px-5 sm:h-21 xl:px-6"
         )}
       >
         <img
@@ -98,7 +98,7 @@ export default function Sidebar({ onNavigate, mobile = false, className = "" }) 
           alt="Real Estate"
           className={cn(
             "h-auto w-auto object-contain",
-            mobile ? "max-h-[46px]" : "max-h-[42px] xl:max-h-[44px]"
+            mobile ? "max-h-11.5" : "max-h-10.5 xl:max-h-11"
           )}
           loading="lazy"
         />
@@ -119,7 +119,7 @@ export default function Sidebar({ onNavigate, mobile = false, className = "" }) 
             className={({ isActive }) =>
               cn(
                 "group flex items-center justify-between rounded-2xl transition",
-                mobile ? "h-[48px] px-4" : "h-[48px] px-4 xl:h-[50px]",
+                mobile ? "h-12 px-4" : "h-12 px-4 xl:h-12.5",
                 isActive
                   ? "bg-[#F6EAE8] text-[#D06050]"
                   : "text-slate-500 hover:bg-slate-50"

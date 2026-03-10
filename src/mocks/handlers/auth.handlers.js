@@ -224,26 +224,43 @@ export const authHandlers = [
   }),
 
   http.post(VERIFY_CODE, async ({ request }) => {
-    await delay(260);
+  await delay(260);
 
-    const body = await request.json().catch(() => ({}));
-    const email = normalizeEmail(body.email);
-    const code = String(body.code || "").trim();
+  const body = await request.json().catch(() => ({}));
+  const email = normalizeEmail(body.email);
+  const code = String(body.code || "").trim();
+  const flow = body.flow === "signup" ? "signup" : "forgot-password";
 
-    if (!email || !code) {
+  if (!email || !code) {
+    return HttpResponse.json(
+      { message: "Email and code are required." },
+      { status: 400 }
+    );
+  }
+
+  if (flow === "signup") {
+    const user = findUserByEmail(email);
+
+    if (!user) {
       return HttpResponse.json(
-        { message: "Email and code are required." },
-        { status: 400 }
+        { message: "User not found for verification." },
+        { status: 404 }
       );
     }
 
-    // Mock flow:
-    // any non-empty code is accepted.
     return HttpResponse.json({
       message: "Code verified successfully.",
       verified: true,
+      token: makeToken(user),
+      user,
     });
-  }),
+  }
+
+  return HttpResponse.json({
+    message: "Code verified successfully.",
+    verified: true,
+  });
+}),
 
   http.post(SET_PASSWORD, async ({ request }) => {
     await delay(320);

@@ -1,5 +1,4 @@
-// PATH: src/pages/auth/VerifyCodePage.jsx
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,6 +13,7 @@ export default function VerifyCodePage() {
   const navigate = useNavigate();
   const authFlow = useAuthStore((state) => state.authFlow);
   const pendingEmail = useAuthStore((state) => state.pendingEmail);
+  const loginSuccess = useAuthStore((state) => state.loginSuccess);
 
   const [code, setCode] = useState("");
   const [showCode, setShowCode] = useState(true);
@@ -21,6 +21,11 @@ export default function VerifyCodePage() {
   const [formError, setFormError] = useState("");
   const [resendMessage, setResendMessage] = useState("");
   const [loading, setLoading] = useState(false);
+
+  const isForgotPasswordFlow = useMemo(
+    () => authFlow === "forgot-password",
+    [authFlow]
+  );
 
   useEffect(() => {
     if (!pendingEmail) {
@@ -44,13 +49,22 @@ export default function VerifyCodePage() {
       setFormError("");
       setResendMessage("");
 
-      await authApi.verifyCode({
+      const response = await authApi.verifyCode({
         email: pendingEmail,
         code: code.trim(),
         flow: authFlow || "signup",
       });
 
-      navigate("/auth/set-password");
+      if ((authFlow || "signup") === "signup") {
+        if (response?.token && response?.user) {
+          loginSuccess(response);
+        }
+
+        navigate("/onboarding/seller-verification", { replace: true });
+        return;
+      }
+
+      navigate("/auth/set-password", { replace: true });
     } catch (err) {
       setFormError(err.message || "Unable to verify code.");
     } finally {
@@ -80,6 +94,7 @@ export default function VerifyCodePage() {
     <AuthPage
       title="Verify code"
       description="An authentication code has been sent to your email."
+      backTo={isForgotPasswordFlow ? "/auth/login" : undefined}
       headerAlign="left"
       maxWidth="max-w-[540px]"
       titleClassName="text-[30px] sm:text-[36px] md:text-[40px]"

@@ -1,4 +1,3 @@
-// PATH: src/pages/auth/SignupPage.jsx
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
@@ -120,7 +119,7 @@ export default function SignupPage() {
       });
 
       setPendingEmail(form.email.trim());
-      navigate("/auth/verify-code");
+      navigate("/auth/set-password");
     } catch (error) {
       setFormError(error.message || "Unable to create account right now.");
     } finally {
@@ -134,7 +133,7 @@ export default function SignupPage() {
       description="Let’s get you all set up so you can access your personal account."
       headerAlign="center"
       maxWidth="max-w-[760px]"
-      titleClassName="text-[32px] sm:text-[40px] md:text-[56px]"
+      titleClassName="text-[30px] sm:text-[36px] md:text-[40px]"
       descriptionClassName="mx-auto max-w-[620px] text-[15px] sm:text-[16px]"
       contentClassName="pt-1"
     >
@@ -194,9 +193,11 @@ export default function SignupPage() {
               errors.avatarFileName ? "border-[#D56352]" : "border-[#D8D8D8]"
             }`}
           >
-            <span className={`truncate text-[15px] font-medium sm:text-[16px] ${
-              form.avatarFileName ? "text-[#232323]" : "text-[#8A8A8A]"
-            }`}>
+            <span
+              className={`truncate text-[15px] font-medium sm:text-[16px] ${
+                form.avatarFileName ? "text-[#232323]" : "text-[#8A8A8A]"
+              }`}
+            >
               {form.avatarFileName || "Choose file"}
             </span>
 
@@ -225,8 +226,7 @@ export default function SignupPage() {
             className="items-start"
           >
             <span className="leading-[1.5]">
-              I agree to all the{" "}
-              <span className="text-[#D56352]">Terms</span> and{" "}
+              I agree to all the <span className="text-[#D56352]">Terms</span> and{" "}
               <span className="text-[#D56352]">Privacy Policies</span>
             </span>
           </AuthCheckboxField>

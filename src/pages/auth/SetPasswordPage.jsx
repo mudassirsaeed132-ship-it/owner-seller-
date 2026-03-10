@@ -1,4 +1,3 @@
-// PATH: src/pages/auth/SetPasswordPage.jsx
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -14,8 +13,6 @@ export default function SetPasswordPage() {
 
   const authFlow = useAuthStore((state) => state.authFlow);
   const pendingEmail = useAuthStore((state) => state.pendingEmail);
-  const loginSuccess = useAuthStore((state) => state.loginSuccess);
-  const clearTransientFlow = useAuthStore((state) => state.clearTransientFlow);
 
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -62,27 +59,18 @@ export default function SetPasswordPage() {
       setLoading(true);
       setFormError("");
 
-      const response = await authApi.setPassword({
+      await authApi.setPassword({
         email: pendingEmail,
         password: password.trim(),
         confirmPassword: confirmPassword.trim(),
         flow: authFlow || "signup",
       });
 
-      if ((authFlow || "signup") === "signup" && response?.token && response?.user) {
-        loginSuccess(response);
-        clearTransientFlow();
-
-        if (!response.user.isSellerVerified) {
-          navigate("/onboarding/seller-verification", { replace: true });
-          return;
-        }
-
-        navigate("/seller", { replace: true });
+      if ((authFlow || "signup") === "signup") {
+        navigate("/auth/verify-code", { replace: true });
         return;
       }
 
-      clearTransientFlow();
       navigate("/auth/login", { replace: true });
     } catch (err) {
       setFormError(err.message || "Unable to set password.");

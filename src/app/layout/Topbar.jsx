@@ -92,10 +92,10 @@ function ProfileMenu({ open, onClose }) {
           <m.div
             ref={ref}
             className="
-              absolute right-0 top-[calc(100%+10px)] z-[60]
-              w-[290px] overflow-hidden rounded-[22px] border border-slate-200 bg-white
+              absolute right-0 top-[calc(100%+10px)] z-60
+              w-72.5 overflow-hidden rounded-[22px] border border-slate-200 bg-white
               shadow-[0_24px_60px_rgba(0,0,0,0.14)]
-              sm:w-[360px]
+              sm:w-90
             "
             {...anim}
           >
@@ -171,7 +171,7 @@ function TopbarIconButton({ children, className, ...props }) {
 function TopbarDesktopSearch() {
   return (
     <div className="hidden min-w-0 flex-1 items-center gap-2 lg:flex">
-      <div className="flex h-11 min-w-0 w-full max-w-[540px] items-center overflow-hidden rounded-xl border border-slate-200 bg-white">
+      <div className="flex h-11 min-w-0 w-full max-w-135 items-center overflow-hidden rounded-xl border border-slate-200 bg-white">
         <div className="flex min-w-0 flex-1 items-center pl-4">
           <Search size={16} className="shrink-0 text-slate-400" />
           <input
@@ -266,11 +266,11 @@ export default function Topbar({
       <div
         className={cn(
           contentAligned
-            ? "mx-auto w-full max-w-[1240px] px-2.5 py-3 sm:px-4 sm:py-4 md:px-6"
+            ? "mx-auto w-full max-w-310 px-2.5 py-3 sm:px-4 sm:py-4 md:px-6"
             : "w-full px-2.5 py-3 sm:px-6 sm:py-4 lg:px-8"
         )}
       >
-        <div className="flex min-h-[40px] items-center justify-between gap-2">
+        <div className="flex min-h-10 items-center justify-between gap-2">
           <div className={cn("flex min-w-0 items-center gap-2 sm:gap-3", showSearchBar ? "flex-1" : "shrink-0")}>
             {showMenu ? (
               <TopbarIconButton
@@ -278,7 +278,7 @@ export default function Topbar({
                 className="lg:hidden"
                 onClick={onOpenMobileNav}
               >
-                <Menu size={16} className="text-slate-600 sm:size-[18px]" />
+                <Menu size={16} className="text-slate-600 sm:size-4.5" />
               </TopbarIconButton>
             ) : null}
 
@@ -292,7 +292,7 @@ export default function Topbar({
                 <img
                   src={logo}
                   alt="Real Estate"
-                  className="block h-auto w-[72px] xs:w-[78px] sm:w-[108px] md:w-[118px]"
+                  className="block h-auto w-18 xs:w-[78px] sm:w-27 md:w-29.5"
                   loading="lazy"
                 />
               </button>
@@ -317,7 +317,7 @@ export default function Topbar({
                 <Plus
                   size={15}
                   strokeWidth={2.4}
-                  className="shrink-0 text-[#D06050] sm:h-[18px] sm:w-[18px]"
+                  className="shrink-0 text-[#D06050] sm:h-4.5 sm:w-4.5"
                 />
                 <span className="hidden text-[15px] font-medium text-[#D06050] sm:inline">
                   AD LISTING
@@ -326,7 +326,7 @@ export default function Topbar({
             ) : null}
 
             <TopbarIconButton aria-label="Favorites">
-              <Heart size={15} className="text-slate-600 sm:size-[18px]" />
+              <Heart size={15} className="text-slate-600 sm:size-4.5" />
             </TopbarIconButton>
 
             {showMessages ? (
@@ -334,12 +334,12 @@ export default function Topbar({
                 aria-label="Messages"
                 onClick={() => nav("/seller/messages")}
               >
-                <MessageCircle size={15} className="text-slate-600 sm:size-[18px]" />
+                <MessageCircle size={15} className="text-slate-600 sm:size-4.5" />
               </TopbarIconButton>
             ) : null}
 
             <TopbarIconButton aria-label="Notifications">
-              <Bell size={15} className="text-slate-600 sm:size-[18px]" />
+              <Bell size={15} className="text-slate-600 sm:size-4.5" />
             </TopbarIconButton>
 
             <div className="relative shrink-0">
@@ -355,7 +355,7 @@ export default function Topbar({
                   src={profileAvatar}
                   loading="lazy"
                 />
-                <ChevronDown size={15} className="hidden text-slate-400 sm:block sm:size-[18px]" />
+                <ChevronDown size={15} className="hidden text-slate-400 sm:block sm:size-4.5" />
               </button>
 
               {enableProfileMenu ? <ProfileMenu open={open} onClose={() => setOpen(false)} /> : null}

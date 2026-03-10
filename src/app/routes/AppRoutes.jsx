@@ -83,8 +83,18 @@ function HomeRedirect() {
 function GuestOnly({ children }) {
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
+  const authFlow = useAuthStore((state) => state.authFlow);
+  const { pathname } = useLocation();
 
   if (token && user) {
+    if (
+      authFlow === "signup" &&
+      pathname === "/auth/verify-code" &&
+      !user.isSellerVerified
+    ) {
+      return children;
+    }
+
     if (!user.isSellerVerified) {
       return <Navigate to="/onboarding/seller-verification" replace />;
     }

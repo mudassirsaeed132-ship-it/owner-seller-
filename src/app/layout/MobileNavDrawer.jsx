@@ -6,7 +6,7 @@ export default function MobileNavDrawer({ open, onClose }) {
     <ModalBase
       open={open}
       onClose={onClose}
-      className="w-full max-w-[320px] overflow-hidden p-0 sm:max-w-[340px]"
+      className="w-full max-w-[320px] overflow-hidden p-0 sm:max-w-85"
       title={null}
     >
       <div className="h-[88vh] min-h-0">

@@ -11,7 +11,7 @@ const labelClass =
 export default function AuthShell() {
   return (
     <div className="min-h-screen w-full bg-white">
-      <div className="mx-auto flex min-h-screen w-full max-w-[1440px] items-center justify-center px-4 py-6 sm:px-6 md:px-8">
+      <div className="mx-auto flex min-h-screen w-full max-w-360 items-center justify-center px-4 py-6 sm:px-6 md:px-8">
         <div className="w-full min-w-0">
           <Outlet />
         </div>
@@ -41,7 +41,7 @@ export function AuthPage({
           <img
             src={authLogo}
             alt="Real Estate"
-            className="h-auto w-[150px] select-none sm:w-[200px] md:w-[220px]"
+            className="h-auto w-37.5 select-none sm:w-50 md:w-55"
           />
         </div>
       ) : null}
@@ -122,7 +122,7 @@ export function AuthField({
 
       <div
         className={cn(
-          "flex h-[52px] w-full items-center rounded-[4px] border bg-transparent px-4 transition focus-within:border-[#D56352] sm:h-[54px]",
+          "flex h-13 w-full items-center rounded-sm border bg-transparent px-4 transition focus-within:border-[#D56352] sm:h-13.5",
           error ? "border-[#D56352]" : "border-[#D8D8D8]"
         )}
       >
@@ -214,7 +214,7 @@ export function AuthCheckboxField({
         type="checkbox"
         checked={checked}
         onChange={onChange}
-        className="h-[18px] w-[18px] rounded-[4px] border border-[#222222] accent-[#D56352]"
+        className="h-4.5 w-4.5 rounded-sm border border-[#222222] accent-[#D56352]"
       />
       <span>{children}</span>
     </label>
@@ -238,7 +238,7 @@ export function AuthSubmitButton({
       whileTap={disabled || loading ? {} : { scale: 0.985 }}
       transition={{ duration: 0.18 }}
       className={cn(
-        "inline-flex h-[54px] w-full items-center justify-center rounded-full bg-[#D56352] px-6 text-[17px] font-semibold text-white transition hover:bg-[#cb5948] disabled:cursor-not-allowed disabled:opacity-55 sm:h-[56px] sm:text-[18px]",
+        "inline-flex h-13.5 w-full items-center justify-center rounded-full bg-[#D56352] px-6 text-[17px] font-semibold text-white transition hover:bg-[#cb5948] disabled:cursor-not-allowed disabled:opacity-55 sm:h-14 sm:text-[18px]",
         className
       )}
     >
