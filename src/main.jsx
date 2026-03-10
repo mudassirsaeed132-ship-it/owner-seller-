@@ -5,14 +5,22 @@ import "./index.css";
 
 async function enableMSW() {
   const shouldEnable =
-    import.meta.env.DEV || String(import.meta.env.VITE_ENABLE_MSW || "").toLowerCase() === "true";
+    import.meta.env.DEV ||
+    String(import.meta.env.VITE_ENABLE_MSW || "").toLowerCase() === "true";
 
   if (!shouldEnable) return;
 
   const { worker } = await import("./mocks/browser.js");
+
   await worker.start({
-    onUnhandledRequest: "bypass",
+    serviceWorker: {
+      url: "/mockServiceWorker.js",
+    },
+    onUnhandledRequest: "error",
+    quiet: false,
   });
+
+  console.info("[MSW] mocking enabled");
 }
 
 enableMSW().then(() => {
