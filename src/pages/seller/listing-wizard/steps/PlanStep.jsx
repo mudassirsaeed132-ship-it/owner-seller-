@@ -6,19 +6,19 @@ import ModalBase from "../../../../shared/ui/ModalBase";
 import { Check } from "lucide-react";
 import logo from "../../../../assets/icons/logo/real-estate-logo.png";
 
-const BRAND = "#D06050";
-
 function PlanCard({ selected, titleTop, title, price, bullets, disabledBullets }) {
   return (
     <Card
       className={[
-        "rounded-2xl p-0 overflow-hidden",
-        selected ? `border-2 border-[${BRAND}]` : "border border-slate-200",
+        "overflow-hidden rounded-2xl p-0",
+        selected ? "border-2 border-[#D06050]" : "border border-slate-200",
       ].join(" ")}
     >
       <div className="flex items-start justify-between bg-[#F6EAE8] px-5 py-4">
         <div>
-          <div className="text-[11px] font-semibold text-slate-600 uppercase">{titleTop}</div>
+          <div className="text-[11px] font-semibold uppercase text-slate-600">
+            {titleTop}
+          </div>
           <div className="text-lg font-semibold text-slate-900">{title}</div>
         </div>
         <img src={logo} alt="" className="h-8 w-auto opacity-90" />
@@ -27,7 +27,9 @@ function PlanCard({ selected, titleTop, title, price, bullets, disabledBullets }
       <div className="px-5 py-5">
         <div className="text-2xl font-semibold text-slate-900">{price}</div>
 
-        <div className="mt-4 text-xs text-slate-600">Includes everything in {title === "Free" ? "FREE" : "FREE"}, plus:</div>
+        <div className="mt-4 text-xs text-slate-600">
+          Includes everything in FREE, plus:
+        </div>
 
         <ul className="mt-4 space-y-2 text-sm">
           {bullets.map((b) => (
@@ -50,8 +52,8 @@ function PlanCard({ selected, titleTop, title, price, bullets, disabledBullets }
         ) : null}
 
         {selected ? (
-          <div className={`mt-5 flex justify-end`}>
-            <div className={`inline-flex h-7 w-7 items-center justify-center rounded-full bg-[${BRAND}] text-white`}>
+          <div className="mt-5 flex justify-end">
+            <div className="inline-flex h-7 w-7 items-center justify-center rounded-full bg-[#D06050] text-white">
               ✓
             </div>
           </div>
@@ -64,9 +66,10 @@ function PlanCard({ selected, titleTop, title, price, bullets, disabledBullets }
 export default function PlanStep() {
   const [cycle, setCycle] = useState("monthly");
   const [selected, setSelected] = useState("free");
-
   const [addonsOpen, setAddonsOpen] = useState(false);
   const [paymentOpen, setPaymentOpen] = useState(false);
+  const [selectedAddons, setSelectedAddons] = useState([]);
+  const [selectedPayment, setSelectedPayment] = useState("gpay");
 
   const plans = useMemo(
     () => [
@@ -85,14 +88,26 @@ export default function PlanStep() {
           "Standard moderation queue",
           "Basic support",
         ],
-        disabledBullets: ["AI price valuation", "AI factsheet PDF", "Booking calendar", "Short-term rent feature", "Financial dashboard"],
+        disabledBullets: [
+          "AI price valuation",
+          "AI factsheet PDF",
+          "Booking calendar",
+          "Short-term rent feature",
+          "Financial dashboard",
+        ],
       },
       {
         key: "pro",
         titleTop: "PLAYER & FAN +",
         title: "PRO",
         price: "$2.99/mo",
-        bullets: ["AI Chatbot Access", "Tournament & Tryout Tracker", "Event Reminders & Notifications", "Calendar Invites", "Advanced Filters & Search"],
+        bullets: [
+          "AI Chatbot Access",
+          "Tournament & Tryout Tracker",
+          "Event Reminders & Notifications",
+          "Calendar Invites",
+          "Advanced Filters & Search",
+        ],
       },
       {
         key: "partner",
@@ -115,11 +130,47 @@ export default function PlanStep() {
     []
   );
 
+  const addonOptions = useMemo(
+    () => ["Featured Listing", "Boosts", "Extra Photos", "AI Factsheets"],
+    []
+  );
+
+  const paymentOptions = useMemo(
+    () => [
+      {
+        key: "gpay",
+        label: "Pay with Google Pay",
+        icon: "/images/icons/g-pay.svg",
+      },
+      {
+        key: "stripe",
+        label: "Pay with Stripe",
+        icon: "/images/icons/stripe.svg",
+      },
+      {
+        key: "apple",
+        label: "Pay with Apple pay",
+        icon: "/images/icons/apple.svg",
+      },
+    ],
+    []
+  );
+
+  const toggleAddon = (addon) => {
+    setSelectedAddons((prev) =>
+      prev.includes(addon)
+        ? prev.filter((x) => x !== addon)
+        : [...prev, addon]
+    );
+  };
+
   return (
     <div className="px-2 pb-10">
-      <h2 className={`text-center text-4xl font-semibold text-[${BRAND}]`}>Choose Plan</h2>
+      <h2 className="text-center text-4xl font-semibold text-[#D06050]">
+        Choose Plan
+      </h2>
 
-      <div className="mt-6 flex justify-center">
+      <div className="mt-5 flex justify-center">
         <Tabs
           value={cycle}
           onChange={setCycle}
@@ -130,41 +181,75 @@ export default function PlanStep() {
         />
       </div>
 
-      <Card className="mt-10 rounded-3xl p-10">
+      <Card className="mt-8 rounded-3xl p-6 sm:p-8 lg:p-10">
         <div className="grid gap-8 lg:grid-cols-3">
           {plans.map((p) => (
-            <button key={p.key} type="button" onClick={() => setSelected(p.key)} className="text-left">
+            <button
+              key={p.key}
+              type="button"
+              onClick={() => setSelected(p.key)}
+              className="text-left"
+            >
               <PlanCard selected={selected === p.key} {...p} />
             </button>
           ))}
         </div>
 
         <div className="mt-10 flex justify-center">
-          <Button className="h-14 w-full max-w-[720px] rounded-2xl" onClick={() => setAddonsOpen(true)}>
+          <Button
+            className="h-14 w-full max-w-[720px] rounded-2xl"
+            onClick={() => setAddonsOpen(true)}
+          >
             Continue with Free Starter
           </Button>
         </div>
 
-        <div className="mt-3 text-center text-xs text-slate-400">You can upgrade anytime from settings.</div>
+        <div className="mt-3 text-center text-xs text-slate-400">
+          You can upgrade anytime from settings.
+        </div>
       </Card>
 
-      {/* Add-ons modal */}
-      <ModalBase open={addonsOpen} onClose={() => setAddonsOpen(false)} title="Choose Add-ons" className="max-w-[900px]">
-        <div className="space-y-4">
-          {["Featured Listing", "Boosts", "Extra Photos", "AI Factsheets"].map((x) => (
-            <button
-              key={x}
-              type="button"
-              className="flex h-14 w-full items-center justify-between rounded-2xl bg-slate-100 px-6 text-sm text-slate-700"
-            >
-              <span>{x}</span>
-              <span className={`h-4 w-4 rounded-full border border-[${BRAND}]`} />
-            </button>
-          ))}
+      <ModalBase
+        open={addonsOpen}
+        onClose={() => setAddonsOpen(false)}
+        title="Choose Add-ons"
+        className="max-w-[620px]"
+      >
+        <div className="space-y-3">
+          {addonOptions.map((x) => {
+            const active = selectedAddons.includes(x);
+
+            return (
+              <button
+                key={x}
+                type="button"
+                onClick={() => toggleAddon(x)}
+                className={[
+                  "flex h-14 w-full items-center justify-between rounded-2xl px-5 text-sm transition",
+                  active
+                    ? "border border-[#D06050] bg-[#FDF1EF] text-slate-900"
+                    : "border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200",
+                ].join(" ")}
+              >
+                <span>{x}</span>
+
+                <span
+                  className={[
+                    "inline-flex h-5 w-5 items-center justify-center rounded-full border transition",
+                    active
+                      ? "border-[#D06050] bg-[#D06050] text-white"
+                      : "border-[#D06050] bg-white text-transparent",
+                  ].join(" ")}
+                >
+                  <Check size={12} />
+                </span>
+              </button>
+            );
+          })}
         </div>
 
         <Button
-          className="mt-8 h-14 w-full rounded-2xl"
+          className="mt-6 h-14 w-full rounded-2xl"
           onClick={() => {
             setAddonsOpen(false);
             setPaymentOpen(true);
@@ -174,17 +259,57 @@ export default function PlanStep() {
         </Button>
       </ModalBase>
 
-      {/* Payment modal */}
-      <ModalBase open={paymentOpen} onClose={() => setPaymentOpen(false)} title="Payment Method" className="max-w-[900px]">
-        <div className="space-y-4">
-          {["Pay with Google Pay", "Pay with Stripe", "Pay with Apple pay"].map((x) => (
-            <button key={x} type="button" className="flex h-14 w-full items-center rounded-2xl bg-slate-100 px-6 text-sm text-slate-700">
-              {x}
-            </button>
-          ))}
+      <ModalBase
+        open={paymentOpen}
+        onClose={() => setPaymentOpen(false)}
+        title="Payment Method"
+        className="max-w-[620px]"
+      >
+        <div className="space-y-3">
+          {paymentOptions.map((item) => {
+            const active = selectedPayment === item.key;
+
+            return (
+              <button
+                key={item.key}
+                type="button"
+                onClick={() => setSelectedPayment(item.key)}
+                className={[
+                  "flex h-14 w-full items-center justify-between rounded-2xl px-5 text-sm transition",
+                  active
+                    ? "border border-[#D06050] bg-[#FDF1EF] text-slate-900"
+                    : "border border-transparent bg-slate-100 text-slate-700 hover:bg-slate-200",
+                ].join(" ")}
+              >
+                <div className="flex items-center gap-3">
+                  <img
+                    src={item.icon}
+                    alt={item.label}
+                    className="h-5 w-5 object-contain"
+                    loading="lazy"
+                  />
+                  <span>{item.label}</span>
+                </div>
+
+                <span
+                  className={[
+                    "inline-flex h-5 w-5 items-center justify-center rounded-full border transition",
+                    active
+                      ? "border-[#D06050] bg-[#D06050] text-white"
+                      : "border-[#D06050] bg-white text-transparent",
+                  ].join(" ")}
+                >
+                  <Check size={12} />
+                </span>
+              </button>
+            );
+          })}
         </div>
 
-        <Button className="mt-8 h-14 w-full rounded-2xl" onClick={() => setPaymentOpen(false)}>
+        <Button
+          className="mt-6 h-14 w-full rounded-2xl"
+          onClick={() => setPaymentOpen(false)}
+        >
           Continue to Payment
         </Button>
       </ModalBase>

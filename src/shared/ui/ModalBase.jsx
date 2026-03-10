@@ -14,15 +14,20 @@ export default function ModalBase({ open, onClose, title, children, className })
 
     const onKey = (e) => {
       if (e.key === "Escape") onClose?.();
+
       if (e.key === "Tab") {
         const root = panelRef.current;
         if (!root) return;
+
         const focusables = root.querySelectorAll(
           'a[href],button:not([disabled]),textarea,input,select,[tabindex]:not([tabindex="-1"])'
         );
+
         if (!focusables.length) return;
+
         const first = focusables[0];
         const last = focusables[focusables.length - 1];
+
         if (e.shiftKey && document.activeElement === first) {
           e.preventDefault();
           last.focus();
@@ -39,13 +44,17 @@ export default function ModalBase({ open, onClose, title, children, className })
 
   useEffect(() => {
     if (!open) return;
+
     const prev = document.activeElement;
+
     setTimeout(() => {
       const root = panelRef.current;
       if (!root) return;
+
       const first = root.querySelector(
         'button:not([disabled]),[href],input,select,textarea,[tabindex]:not([tabindex="-1"])'
       );
+
       first?.focus?.();
     }, 0);
 
@@ -57,24 +66,27 @@ export default function ModalBase({ open, onClose, title, children, className })
   return createPortal(
     <div aria-labelledby={id} role="dialog" aria-modal="true" className="fixed inset-0 z-[60]">
       <button
-        aria-label="Close"
+        type="button"
+        aria-label="Close modal"
         className="absolute inset-0 bg-black/40"
         onClick={() => onClose?.()}
-        type="button"
       />
-      <div className="relative flex min-h-full items-center justify-center px-4 py-10">
+
+      <div className="relative z-[1] flex min-h-full items-center justify-center px-4 py-6 sm:px-6 sm:py-8">
         <div
           ref={panelRef}
+          onClick={(e) => e.stopPropagation()}
           className={cn(
-            "relative w-full max-w-[860px] rounded-2xl bg-white px-10 py-8 shadow-[0_30px_80px_rgba(0,0,0,0.18)]",
+            "relative w-full max-w-[680px] max-h-[85vh] overflow-y-auto rounded-[24px] bg-white px-5 py-5 shadow-[0_30px_80px_rgba(0,0,0,0.18)] sm:px-8 sm:py-7",
             className
           )}
         >
           {title ? (
-            <h2 id={id} className="mb-6 text-2xl font-semibold text-slate-900">
+            <h2 id={id} className="mb-5 text-[28px] font-semibold leading-none text-slate-900">
               {title}
             </h2>
           ) : null}
+
           {children}
         </div>
       </div>

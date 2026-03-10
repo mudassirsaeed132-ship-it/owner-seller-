@@ -15,17 +15,18 @@ export default function ReviewStep() {
     meta: "32 Views . 2 chats",
     type: "Rent",
     badge: "Apartment",
-    image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=700&q=70",
+    image: "/images/properties/p-1.png",
   };
 
   return (
     <div>
-      <h2 className="mb-6 text-center text-4xl font-semibold text-[#D06050]">Advertisement Review</h2>
+      <h2 className="mb-5 text-left text-4xl font-semibold text-[#D06050]">
+        Advertisement Review
+      </h2>
 
       <ListingPreviewRow item={item} />
 
-      <Card className="mt-6 rounded-2xl p-8">
+      <Card className="mt-5 rounded-2xl p-8">
         <div className="text-sm font-semibold text-slate-900">Period</div>
 
         <div className="mt-3 grid gap-4 md:grid-cols-2">
@@ -33,7 +34,9 @@ export default function ReviewStep() {
           <DateInput placeholder="To" />
         </div>
 
-        <div className="mt-6 text-sm font-semibold text-slate-600">Choose a Plan for posting this ad</div>
+        <div className="mt-6 text-sm font-semibold text-slate-600">
+          Choose a Plan for posting this ad
+        </div>
 
         <div className="mt-3 space-y-3">
           {["Subscription", "Featured Advertisement"].map((x) => (
@@ -48,7 +51,10 @@ export default function ReviewStep() {
           ))}
         </div>
 
-        <Button className="mt-8 h-14 w-full rounded-2xl" onClick={() => nav("/seller/listings/new/plan")}>
+        <Button
+          className="mt-8 h-14 w-full rounded-2xl"
+          onClick={() => nav("/seller/listings/new/plan")}
+        >
           Next
         </Button>
       </Card>
