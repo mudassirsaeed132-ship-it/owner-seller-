@@ -3,7 +3,7 @@ import ig from "../../assets/icons/social/instagram.svg";
 import x from "../../assets/icons/social/x.svg";
 import yt from "../../assets/icons/social/youtube.svg";
 
-import phone from "../../assets/images/footer/footer-phone.svg";
+import phone from "../../assets/images/footer/footer.phone.png";
 import gp from "../../assets/images/footer/badge-google-play.svg";
 import ag from "../../assets/images/footer/badge-appgallery.svg";
 
