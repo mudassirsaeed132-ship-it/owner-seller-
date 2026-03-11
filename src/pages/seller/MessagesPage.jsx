@@ -11,6 +11,8 @@ import { queryKeys } from "../../services/api/queryKeys";
 import { messagesApi } from "../../features/messaging/api/messagesApi";
 import useMediaQuery from "../../shared/hooks/useMediaQuery";
 
+const LOCAL_AVATAR = "/images/avators/avator-1.png";
+
 export default function MessagesPage() {
   const isMobile = useMediaQuery("(max-width: 900px)");
   const qc = useQueryClient();
@@ -32,7 +34,6 @@ export default function MessagesPage() {
   }, [items, activeId]);
 
   useEffect(() => {
-    // when switching tabs, select first item
     if (items.length) setActiveId(items[0].id);
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -61,7 +62,7 @@ export default function MessagesPage() {
   };
 
   const activeHeaderName = threadQ.data?.headerName || "";
-  const activeHeaderAvatar = threadQ.data?.headerAvatar || "https://i.pravatar.cc/60?img=3";
+  const activeHeaderAvatar = LOCAL_AVATAR;
   const activeTitle = threadQ.data?.threadTitle || "";
   const activeMsgs = threadQ.data?.messages || [];
 
@@ -72,14 +73,27 @@ export default function MessagesPage() {
 
         <Card className="mt-6 overflow-hidden rounded-2xl border border-slate-100 bg-white shadow-[0_10px_30px_rgba(15,23,42,0.08)]">
           <div className="grid min-h-160 grid-cols-1 lg:grid-cols-[420px_1fr]">
-            {/* LEFT */}
-            <div className={`${isMobile && mobileView === "chat" ? "hidden" : "block"} border-r border-slate-200`}>
-              <ConversationList tab={tab} onTabChange={setTab} items={items} activeId={activeId} onSelect={onSelect} />
+            <div
+              className={`${isMobile && mobileView === "chat" ? "hidden" : "block"} border-r border-slate-200`}
+            >
+              <ConversationList
+                tab={tab}
+                onTabChange={setTab}
+                items={items}
+                activeId={activeId}
+                onSelect={onSelect}
+              />
             </div>
 
-            {/* RIGHT */}
-            <div className={`${isMobile && mobileView === "list" ? "hidden" : "flex"} flex-col`}>
-              <ChatHeader name={activeHeaderName} avatar={activeHeaderAvatar} onClose={onCloseChat} showBack={Boolean(isMobile)} />
+            <div
+              className={`${isMobile && mobileView === "list" ? "hidden" : "flex"} flex-col`}
+            >
+              <ChatHeader
+                name={activeHeaderName}
+                avatar={activeHeaderAvatar}
+                onClose={onCloseChat}
+                showBack={Boolean(isMobile)}
+              />
 
               <div className="flex-1">
                 <ChatThread title={activeTitle} messages={activeMsgs} />
