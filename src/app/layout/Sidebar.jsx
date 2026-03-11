@@ -3,7 +3,7 @@ import {
   CalendarDays,
   ChevronRight,
   Home,
-  MessageCircle,
+  MessageCircleMore,
 } from "lucide-react";
 import { cn } from "../../shared/lib/cn";
 import logo from "../../assets/icons/logo/real-estate-logo.png";
@@ -21,7 +21,7 @@ const nav = [
   {
     to: "/seller/messages",
     label: "Messages",
-    icon: MessageCircle,
+    icon: MessageCircleMore,
     type: "lucide",
   },
   {

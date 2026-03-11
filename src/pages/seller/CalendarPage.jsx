@@ -16,8 +16,9 @@ export default function CalendarPage() {
   const qc = useQueryClient();
   const [open, setOpen] = useState(false);
 
-  //  safe key (won’t crash if queryKeys.calendar missing)
-  const DASH_KEY = queryKeys?.calendar?.dashboard ? queryKeys.calendar.dashboard() : ["calendar", "dashboard"];
+  const DASH_KEY = queryKeys?.calendar?.dashboard
+    ? queryKeys.calendar.dashboard()
+    : ["calendar", "dashboard"];
 
   const dashQ = useQuery({
     queryKey: DASH_KEY,
@@ -46,33 +47,40 @@ export default function CalendarPage() {
   const leftCards = useMemo(() => upcoming, [upcoming]);
 
   return (
-    <div className="px-4 py-10 sm:px-6 lg:px-10">
-      <div className="mx-auto max-w-295">
-        {/* header row */}
-        <div className="flex items-center justify-between gap-4">
-          <h1 className="text-4xl font-semibold text-[#D06050]">Calendar &amp; Bookings</h1>
+    <div className="px-4 py-6 sm:px-6 sm:py-8 lg:px-8 lg:py-9 xl:px-10 xl:py-10">
+      <div className="mx-auto max-w-[1260px]">
+        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+          <h1 className="text-[32px] font-semibold leading-tight text-[#D06050] sm:text-[40px] xl:text-[44px]">
+            Calendar &amp; Bookings
+          </h1>
 
-          <Button className="h-12 rounded-full px-8" onClick={() => setOpen(true)}>
+          <Button
+            className="h-11 self-start rounded-2xl px-6 text-[14px] sm:h-12 sm:px-8 sm:text-[15px]"
+            onClick={() => setOpen(true)}
+          >
             Calendar
           </Button>
         </div>
 
-        {/* grid */}
-        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_360px]">
-          {/* LEFT */}
-          <div>
-            <div className="mb-3 flex items-center justify-between">
-              <div className="text-base font-semibold text-slate-900">Upcoming Schedule</div>
-              <button type="button" className="text-xs font-medium text-[#D06050] hover:underline">
+        <div className="mt-8 grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
+          <div className="min-w-0">
+            <div className="mb-3 flex items-center justify-between gap-4">
+              <div className="text-[16px] font-semibold text-slate-900 sm:text-[17px]">
+                Upcoming Schedule
+              </div>
+
+              <button
+                type="button"
+                className="text-[12px] font-medium text-[#D06050] transition hover:underline sm:text-[13px]"
+              >
                 See all
               </button>
             </div>
 
-            {/*  loading */}
             {dashQ.isLoading ? (
               <div className="space-y-6">
-                <Skeleton className="h-55 rounded-2xl" />
-                <Skeleton className="h-55 rounded-2xl" />
+                <Skeleton className="h-[240px] rounded-2xl sm:h-[220px]" />
+                <Skeleton className="h-[240px] rounded-2xl sm:h-[220px]" />
               </div>
             ) : dashQ.isError ? (
               <Card className="rounded-2xl p-5 text-sm text-slate-600">
@@ -91,22 +99,27 @@ export default function CalendarPage() {
                 ))}
               </div>
             ) : (
-              <Card className="rounded-2xl p-5 text-sm text-slate-500">No upcoming bookings yet.</Card>
+              <Card className="rounded-2xl p-5 text-sm text-slate-500">
+                No upcoming bookings yet.
+              </Card>
             )}
           </div>
 
-          {/* RIGHT */}
-          <div>
-            <div className="mb-3 text-base font-semibold text-slate-900">Properties Overview</div>
+          <div className="min-w-0">
+            <div className="mb-3 text-[16px] font-semibold text-slate-900 sm:text-[17px]">
+              Properties Overview
+            </div>
 
             {dashQ.isLoading ? (
-              <Skeleton className="h-65 rounded-2xl" />
+              <Skeleton className="h-[280px] rounded-2xl" />
             ) : (
-              <Card className="rounded-2xl p-4">
+              <Card className="rounded-2xl p-4 sm:p-5">
                 {overview.length ? (
                   <PropertiesOverviewCard items={overview} />
                 ) : (
-                  <div className="py-10 text-center text-sm text-slate-500">No overview items.</div>
+                  <div className="py-10 text-center text-sm text-slate-500">
+                    No overview items.
+                  </div>
                 )}
               </Card>
             )}

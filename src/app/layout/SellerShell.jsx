@@ -20,9 +20,13 @@ export default function SellerShell() {
     return pathname.startsWith("/seller/privacy");
   }, [pathname]);
 
+  const isListingWizard = useMemo(() => {
+    return pathname.startsWith("/seller/listings/new");
+  }, [pathname]);
+
   const isStandalone = useMemo(() => {
-    return isProfileModule || isPrivacyPage;
-  }, [isProfileModule, isPrivacyPage]);
+    return isProfileModule || isPrivacyPage || isListingWizard;
+  }, [isProfileModule, isPrivacyPage, isListingWizard]);
 
   useEffect(() => {
     setMobileOpen(false);
@@ -42,7 +46,7 @@ export default function SellerShell() {
             onOpenMobileNav={() => setMobileOpen(true)}
             showMenu={!isStandalone}
             showBrand={isStandalone}
-            showMessages={isProfileModule || isPrivacyPage}
+            showMessages={isProfileModule || isPrivacyPage || isListingWizard}
             enableProfileMenu={isProfileModule || isPrivacyPage}
             showSearchBar={isPrivacyPage}
             showAddListing={!isPrivacyPage}
