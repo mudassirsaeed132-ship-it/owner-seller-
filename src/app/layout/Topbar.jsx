@@ -48,6 +48,7 @@ function ProfileMenu({ open, onClose }) {
   const ref = useRef(null);
   const logoutStore = useAuthStore((state) => state.logout);
   const [isLoggingOut, setIsLoggingOut] = useState(false);
+  const landingUrl = import.meta.env.VITE_LANDING_APP_URL || "/";
 
   useOutsideClick(ref, onClose, open && !isLoggingOut);
 
@@ -71,8 +72,7 @@ function ProfileMenu({ open, onClose }) {
     } finally {
       logoutStore();
       onClose?.();
-      nav("/auth/role", { replace: true });
-      setIsLoggingOut(false);
+      window.location.href = landingUrl;
     }
   };
 
@@ -271,7 +271,12 @@ export default function Topbar({
         )}
       >
         <div className="flex min-h-10 items-center justify-between gap-2">
-          <div className={cn("flex min-w-0 items-center gap-2 sm:gap-3", showSearchBar ? "flex-1" : "shrink-0")}>
+          <div
+            className={cn(
+              "flex min-w-0 items-center gap-2 sm:gap-3",
+              showSearchBar ? "flex-1" : "shrink-0"
+            )}
+          >
             {showMenu ? (
               <TopbarIconButton
                 aria-label="Open navigation"
@@ -355,10 +360,15 @@ export default function Topbar({
                   src={profileAvatar}
                   loading="lazy"
                 />
-                <ChevronDown size={15} className="hidden text-slate-400 sm:block sm:size-4.5" />
+                <ChevronDown
+                  size={15}
+                  className="hidden text-slate-400 sm:block sm:size-4.5"
+                />
               </button>
 
-              {enableProfileMenu ? <ProfileMenu open={open} onClose={() => setOpen(false)} /> : null}
+              {enableProfileMenu ? (
+                <ProfileMenu open={open} onClose={() => setOpen(false)} />
+              ) : null}
             </div>
           </div>
         </div>
