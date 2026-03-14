@@ -1,4 +1,5 @@
-import { useEffect, useRef, useState } from "react";
+// PATH: src/app/layout/Topbar.jsx
+import { useCallback, useEffect, useId, useRef, useState } from "react";
 import {
   Bell,
   ChevronDown,
@@ -22,46 +23,90 @@ import { useAuthStore } from "../../features/auth/model/authStore";
 import profileAvatar from "../../assets/images/profile/Benjamin Franklyn.svg";
 import logo from "../../assets/icons/logo/real-estate-logo.png";
 
+const ROUTES = {
+  sellerHome: "/seller",
+  sellerProfile: "/seller/profile",
+  sellerPrivacy: "/seller/privacy",
+  sellerMessages: "/seller/messages",
+  sellerNewListing: "/seller/listings/new/details",
+};
+
+const COPY = {
+  desktopSearchPlaceholder: "Search properties, buyers, and listings...",
+  mobileSearchPlaceholder: "Search properties...",
+  searchButtonLabel: "Search",
+  filtersLabel: "Filters",
+  favoritesLabel: "Favorites",
+  notificationsLabel: "Notifications",
+  messagesLabel: "Messages",
+  openNavigationLabel: "Open navigation",
+  openProfileMenuLabel: "Open profile menu",
+  goToProfileLabel: "Go to profile",
+  goToSellerHomeLabel: "Go to seller home",
+  addListingLabel: "Add listing",
+  addListingText: "ADD LISTING",
+  privacyControls: "Privacy controls",
+  logout: "Logout",
+  loggingOut: "Logging out...",
+  viewPublicProfile: "View Public Profile",
+};
+
 function useOutsideClick(ref, handler, when = true) {
   useEffect(() => {
     if (!when) return;
 
-    const onDown = (e) => {
-      if (!ref.current) return;
-      if (ref.current.contains(e.target)) return;
+    const onPointerDown = (event) => {
+      const element = ref.current;
+      if (!element) return;
+      if (element.contains(event.target)) return;
       handler?.();
     };
 
-    document.addEventListener("mousedown", onDown);
-    document.addEventListener("touchstart", onDown, { passive: true });
+    document.addEventListener("mousedown", onPointerDown);
+    document.addEventListener("touchstart", onPointerDown, { passive: true });
 
     return () => {
-      document.removeEventListener("mousedown", onDown);
-      document.removeEventListener("touchstart", onDown);
+      document.removeEventListener("mousedown", onPointerDown);
+      document.removeEventListener("touchstart", onPointerDown);
     };
   }, [ref, handler, when]);
 }
 
-function ProfileMenu({ open, onClose }) {
-  const reduced = usePrefersReducedMotion();
-  const nav = useNavigate();
+function ProfileMenu({ open, onClose, menuId }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const navigate = useNavigate();
   const ref = useRef(null);
+
+  const user = useAuthStore((state) => state.user);
   const logoutStore = useAuthStore((state) => state.logout);
+
   const [isLoggingOut, setIsLoggingOut] = useState(false);
-  const landingUrl = import.meta.env.VITE_LANDING_APP_URL || "/";
+
+  const landingUrl = (import.meta.env.VITE_LANDING_APP_URL || "/").trim() || "/";
+  const profileName = user?.fullName || user?.name || "Benjamin Franklyn";
 
   useOutsideClick(ref, onClose, open && !isLoggingOut);
 
   useEffect(() => {
     if (!open) return;
 
-    const onKey = (e) => {
-      if (e.key === "Escape" && !isLoggingOut) onClose?.();
+    const onKeyDown = (event) => {
+      if (event.key === "Escape" && !isLoggingOut) {
+        onClose?.();
+      }
     };
 
-    window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
   }, [open, onClose, isLoggingOut]);
+
+  const goToRoute = useCallback(
+    (route) => {
+      navigate(route);
+      onClose?.();
+    },
+    [navigate, onClose]
+  );
 
   const handleLogout = async () => {
     try {
@@ -76,8 +121,12 @@ function ProfileMenu({ open, onClose }) {
     }
   };
 
-  const anim = reduced
-    ? { initial: false, animate: { opacity: 1 }, exit: { opacity: 1 } }
+  const animationProps = reducedMotion
+    ? {
+        initial: false,
+        animate: { opacity: 1 },
+        exit: { opacity: 1 },
+      }
     : {
         initial: { opacity: 0, y: 8, scale: 0.98 },
         animate: { opacity: 1, y: 0, scale: 1 },
@@ -90,14 +139,17 @@ function ProfileMenu({ open, onClose }) {
       <AnimatePresence>
         {open ? (
           <m.div
+            id={menuId}
             ref={ref}
+            role="menu"
+            aria-label="Profile menu"
             className="
               absolute right-0 top-[calc(100%+10px)] z-60
               w-72.5 overflow-hidden rounded-[22px] border border-slate-200 bg-white
               shadow-[0_24px_60px_rgba(0,0,0,0.14)]
               sm:w-90
             "
-            {...anim}
+            {...animationProps}
           >
             <div className="flex items-center gap-3 px-4 py-4 sm:gap-4 sm:px-6 sm:py-5">
               <img
@@ -108,17 +160,14 @@ function ProfileMenu({ open, onClose }) {
               />
               <div className="min-w-0">
                 <div className="truncate text-[15px] font-medium text-slate-900 sm:text-[16px]">
-                  Benjamin Franklyn
+                  {profileName}
                 </div>
                 <button
                   type="button"
-                  onClick={() => {
-                    nav("/seller/profile");
-                    onClose?.();
-                  }}
+                  onClick={() => goToRoute(ROUTES.sellerProfile)}
                   className="mt-1 text-[12px] font-medium text-[#D06050] underline underline-offset-4"
                 >
-                  View Public Profile
+                  {COPY.viewPublicProfile}
                 </button>
               </div>
             </div>
@@ -127,13 +176,10 @@ function ProfileMenu({ open, onClose }) {
 
             <button
               type="button"
-              onClick={() => {
-                nav("/seller/privacy");
-                onClose?.();
-              }}
+              onClick={() => goToRoute(ROUTES.sellerPrivacy)}
               className="flex w-full items-center justify-between px-4 py-3 text-[15px] font-medium text-slate-900 hover:bg-slate-50 sm:px-6 sm:text-[16px]"
             >
-              <span>Privacy controls</span>
+              <span>{COPY.privacyControls}</span>
               <ChevronRight className="text-slate-300" size={20} />
             </button>
 
@@ -143,7 +189,7 @@ function ProfileMenu({ open, onClose }) {
               disabled={isLoggingOut}
               className="flex w-full items-center justify-between px-4 py-3 text-[15px] font-medium text-slate-900 hover:bg-slate-50 disabled:cursor-not-allowed disabled:opacity-60 sm:px-6 sm:text-[16px]"
             >
-              <span>{isLoggingOut ? "Logging out..." : "Logout"}</span>
+              <span>{isLoggingOut ? COPY.loggingOut : COPY.logout}</span>
               <ChevronRight className="text-slate-300" size={20} />
             </button>
           </m.div>
@@ -176,7 +222,7 @@ function TopbarDesktopSearch() {
           <Search size={16} className="shrink-0 text-slate-400" />
           <input
             type="text"
-            placeholder="Find Cars, Mobile Phones and more..."
+            placeholder={COPY.desktopSearchPlaceholder}
             className="h-full min-w-0 flex-1 border-0 bg-transparent px-3 text-[13px] text-slate-700 outline-none placeholder:text-slate-400"
           />
         </div>
@@ -186,13 +232,13 @@ function TopbarDesktopSearch() {
           className="mr-1 inline-flex h-9 items-center gap-2 rounded-lg bg-[#D06050] px-4 text-[13px] font-semibold text-white"
         >
           <Search size={14} />
-          Search
+          {COPY.searchButtonLabel}
         </button>
       </div>
 
       <button
         type="button"
-        aria-label="Filters"
+        aria-label={COPY.filtersLabel}
         className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#D06050] text-white"
       >
         <SlidersHorizontal size={18} />
@@ -209,7 +255,7 @@ function TopbarMobileSearch() {
           <Search size={15} className="shrink-0 text-slate-400" />
           <input
             type="text"
-            placeholder="Search..."
+            placeholder={COPY.mobileSearchPlaceholder}
             className="h-full min-w-0 flex-1 border-0 bg-transparent px-2.5 text-[13px] text-slate-700 outline-none placeholder:text-slate-400"
           />
         </div>
@@ -217,7 +263,7 @@ function TopbarMobileSearch() {
         <button
           type="button"
           className="mr-1 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#D06050] text-white"
-          aria-label="Search"
+          aria-label={COPY.searchButtonLabel}
         >
           <Search size={14} />
         </button>
@@ -225,7 +271,7 @@ function TopbarMobileSearch() {
 
       <button
         type="button"
-        aria-label="Filters"
+        aria-label={COPY.filtersLabel}
         className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#D06050] text-white"
       >
         <SlidersHorizontal size={17} />
@@ -244,8 +290,10 @@ export default function Topbar({
   showAddListing = true,
   contentAligned = false,
 }) {
-  const nav = useNavigate();
+  const navigate = useNavigate();
   const { pathname } = useLocation();
+  const menuId = useId();
+
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -258,7 +306,19 @@ export default function Topbar({
       return;
     }
 
-    nav("/seller/profile");
+    navigate(ROUTES.sellerProfile);
+  };
+
+  const handleGoHome = () => {
+    navigate(ROUTES.sellerHome);
+  };
+
+  const handleGoToNewListing = () => {
+    navigate(ROUTES.sellerNewListing);
+  };
+
+  const handleGoToMessages = () => {
+    navigate(ROUTES.sellerMessages);
   };
 
   return (
@@ -279,7 +339,7 @@ export default function Topbar({
           >
             {showMenu ? (
               <TopbarIconButton
-                aria-label="Open navigation"
+                aria-label={COPY.openNavigationLabel}
                 className="lg:hidden"
                 onClick={onOpenMobileNav}
               >
@@ -290,9 +350,9 @@ export default function Topbar({
             {showBrand ? (
               <button
                 type="button"
-                onClick={() => nav("/seller")}
+                onClick={handleGoHome}
                 className="flex shrink-0 items-center"
-                aria-label="Go to seller home"
+                aria-label={COPY.goToSellerHomeLabel}
               >
                 <img
                   src={logo}
@@ -310,8 +370,8 @@ export default function Topbar({
             {showAddListing ? (
               <button
                 type="button"
-                onClick={() => nav("/seller/listings/new/details")}
-                aria-label="Add listing"
+                onClick={handleGoToNewListing}
+                aria-label={COPY.addListingLabel}
                 className="
                   inline-flex items-center justify-center gap-2
                   h-8 w-8 rounded-[10px] border border-[#D06050] bg-white p-0
@@ -325,25 +385,25 @@ export default function Topbar({
                   className="shrink-0 text-[#D06050] sm:h-4.5 sm:w-4.5"
                 />
                 <span className="hidden text-[15px] font-medium text-[#D06050] sm:inline">
-                  AD LISTING
+                  {COPY.addListingText}
                 </span>
               </button>
             ) : null}
 
-            <TopbarIconButton aria-label="Favorites">
+            <TopbarIconButton aria-label={COPY.favoritesLabel}>
               <Heart size={15} className="text-slate-600 sm:size-4.5" />
             </TopbarIconButton>
 
             {showMessages ? (
               <TopbarIconButton
-                aria-label="Messages"
-                onClick={() => nav("/seller/messages")}
+                aria-label={COPY.messagesLabel}
+                onClick={handleGoToMessages}
               >
                 <MessageCircle size={15} className="text-slate-600 sm:size-4.5" />
               </TopbarIconButton>
             ) : null}
 
-            <TopbarIconButton aria-label="Notifications">
+            <TopbarIconButton aria-label={COPY.notificationsLabel}>
               <Bell size={15} className="text-slate-600 sm:size-4.5" />
             </TopbarIconButton>
 
@@ -352,7 +412,14 @@ export default function Topbar({
                 type="button"
                 onClick={handleProfileClick}
                 className="flex items-center gap-1"
-                aria-label={enableProfileMenu ? "Open profile menu" : "Go to profile"}
+                aria-haspopup={enableProfileMenu ? "menu" : undefined}
+                aria-expanded={enableProfileMenu ? open : undefined}
+                aria-controls={enableProfileMenu ? menuId : undefined}
+                aria-label={
+                  enableProfileMenu
+                    ? COPY.openProfileMenuLabel
+                    : COPY.goToProfileLabel
+                }
               >
                 <img
                   alt="avatar"
@@ -367,7 +434,11 @@ export default function Topbar({
               </button>
 
               {enableProfileMenu ? (
-                <ProfileMenu open={open} onClose={() => setOpen(false)} />
+                <ProfileMenu
+                  open={open}
+                  onClose={() => setOpen(false)}
+                  menuId={menuId}
+                />
               ) : null}
             </div>
           </div>
