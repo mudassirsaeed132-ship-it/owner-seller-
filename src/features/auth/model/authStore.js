@@ -2,14 +2,33 @@
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
+const STORAGE_KEY = "real-estate-auth-store";
+
+const INITIAL_STATE = {
+  token: null,
+  user: null,
+  selectedRole: null,
+  authFlow: null,
+  pendingEmail: "",
+  hasHydrated: false,
+};
+
+function getClearedAuthState() {
+  return {
+    token: null,
+    user: null,
+    selectedRole: null,
+    authFlow: null,
+    pendingEmail: "",
+  };
+}
+
 export const useAuthStore = create(
   persist(
     (set) => ({
-      token: null,
-      user: null,
-      selectedRole: null,
-      authFlow: null,
-      pendingEmail: "",
+      ...INITIAL_STATE,
+
+      setHasHydrated: (hasHydrated) => set({ hasHydrated }),
 
       setSelectedRole: (selectedRole) => set({ selectedRole }),
       setAuthFlow: (authFlow) => set({ authFlow }),
@@ -19,6 +38,8 @@ export const useAuthStore = create(
         set({
           token,
           user,
+          authFlow: null,
+          pendingEmail: "",
         }),
 
       updateUser: (updates) =>
@@ -41,15 +62,12 @@ export const useAuthStore = create(
 
       logout: () =>
         set({
-          token: null,
-          user: null,
-          selectedRole: null,
-          authFlow: null,
-          pendingEmail: "",
+          ...getClearedAuthState(),
+          hasHydrated: true,
         }),
     }),
     {
-      name: "real-estate-auth-store",
+      name: STORAGE_KEY,
       storage: createJSONStorage(() => localStorage),
       partialize: (state) => ({
         token: state.token,
@@ -58,6 +76,9 @@ export const useAuthStore = create(
         authFlow: state.authFlow,
         pendingEmail: state.pendingEmail,
       }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true);
+      },
     }
   )
 );

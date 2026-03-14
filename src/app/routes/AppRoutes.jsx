@@ -1,6 +1,6 @@
 // PATH: src/app/routes/AppRoutes.jsx
-import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { lazy } from "react";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { AnimatePresence, LazyMotion, domAnimation, m } from "framer-motion";
 
 import SellerShell from "../layout/SellerShell";
@@ -31,11 +31,17 @@ const PlanStep = lazy(() => import("../../pages/seller/listing-wizard/steps/Plan
 // profile
 const ProfilePage = lazy(() => import("../../pages/seller/profile/ProfilePage"));
 const EditProfilePage = lazy(() => import("../../pages/seller/profile/EditProfilePage"));
-const PaymentsInvoicesPage = lazy(() => import("../../pages/seller/profile/PaymentsInvoicesPage"));
-const DocumentsStatusPage = lazy(() => import("../../pages/seller/profile/DocumentsStatusPage"));
+const PaymentsInvoicesPage = lazy(() =>
+  import("../../pages/seller/profile/PaymentsInvoicesPage")
+);
+const DocumentsStatusPage = lazy(() =>
+  import("../../pages/seller/profile/DocumentsStatusPage")
+);
 
 // privacy
-const PrivacyControlsPage = lazy(() => import("../../pages/seller/privacy/PrivacyControlsPage"));
+const PrivacyControlsPage = lazy(() =>
+  import("../../pages/seller/privacy/PrivacyControlsPage")
+);
 
 // auth
 const RolePage = lazy(() => import("../../pages/auth/RolePage"));
@@ -50,34 +56,116 @@ const SellerVerificationPage = lazy(() =>
   import("../../pages/onboarding/SellerVerificationPage")
 );
 
+const ROUTER_FUTURE_FLAGS = {
+  v7_startTransition: true,
+  v7_relativeSplatPath: true,
+};
+
+const ROUTES = {
+  home: "/",
+
+  authRoot: "/auth",
+  authRole: "/auth/role",
+  authLogin: "/auth/login",
+  authSignup: "/auth/signup",
+  authForgotPassword: "/auth/forgot-password",
+  authVerifyCode: "/auth/verify-code",
+  authSetPassword: "/auth/set-password",
+
+  onboardingRoot: "/onboarding",
+  onboardingSellerVerification: "/onboarding/seller-verification",
+
+  sellerRoot: "/seller",
+  sellerDashboard: "/seller/dashboard",
+  sellerListings: "/seller/listings",
+  sellerMessages: "/seller/messages",
+  sellerCalendar: "/seller/calendar",
+  sellerLeads: "/seller/leads",
+  sellerProfile: "/seller/profile",
+  sellerProfileEdit: "/seller/profile/edit",
+  sellerProfilePayments: "/seller/profile/payments",
+  sellerProfileDocumentStatus: "/seller/profile/document-status",
+  sellerPrivacy: "/seller/privacy",
+  sellerListingsNew: "/seller/listings/new",
+};
+
+const AUTH_ROUTE_DEFINITIONS = [
+  { path: "role", Component: RolePage },
+  { path: "login", Component: LoginPage },
+  { path: "signup", Component: SignupPage },
+  { path: "forgot-password", Component: ForgotPasswordPage },
+  { path: "verify-code", Component: VerifyCodePage },
+  { path: "set-password", Component: SetPasswordPage },
+];
+
+const SELLER_ROUTE_DEFINITIONS = [
+  { index: true, key: "seller-index", Component: DashboardPage },
+  { path: "dashboard", Component: DashboardPage },
+  { path: "listings", Component: ListingsPage },
+  { path: "messages", Component: MessagesPage },
+  { path: "calendar", Component: CalendarPage },
+  { path: "leads", Component: LeadsPage },
+  { path: "profile", Component: ProfilePage },
+  { path: "profile/edit", Component: EditProfilePage },
+  { path: "profile/payments", Component: PaymentsInvoicesPage },
+  { path: "profile/document-status", Component: DocumentsStatusPage },
+  { path: "privacy", Component: PrivacyControlsPage },
+];
+
+const WIZARD_ROUTE_DEFINITIONS = [
+  { path: "details", Component: DetailsStep },
+  { path: "location", Component: LocationStep },
+  { path: "pricing", Component: PricingStep },
+  { path: "review", Component: ReviewStep },
+  { path: "plan", Component: PlanStep },
+];
+
 function PageWrap({ children }) {
-  const reduce = usePrefersReducedMotion();
+  const reduceMotion = usePrefersReducedMotion();
 
   return (
     <m.div
-      initial={reduce ? false : { opacity: 0, y: 10 }}
-      animate={reduce ? false : { opacity: 1, y: 0 }}
-      exit={reduce ? false : { opacity: 0, y: -10 }}
-      transition={{ duration: reduce ? 0 : 0.18, ease: "easeOut" }}
+      initial={reduceMotion ? false : { opacity: 0, y: 10 }}
+      animate={reduceMotion ? false : { opacity: 1, y: 0 }}
+      exit={reduceMotion ? false : { opacity: 0, y: -10 }}
+      transition={{ duration: reduceMotion ? 0 : 0.18, ease: "easeOut" }}
     >
       {children}
     </m.div>
   );
 }
 
+function withPageShell(node) {
+  return (
+    <Lazy>
+      <PageWrap>{node}</PageWrap>
+    </Lazy>
+  );
+}
+
+function renderPage(Component) {
+  return withPageShell(<Component />);
+}
+
+function renderGuestPage(Component) {
+  return <GuestOnly>{renderPage(Component)}</GuestOnly>;
+}
+
 function HomeRedirect() {
   const token = useAuthStore((state) => state.token);
   const user = useAuthStore((state) => state.user);
 
-  if (!token || !user) {
-    return <Navigate to="/auth/role" replace />;
+  const isAuthenticated = Boolean(token && user);
+
+  if (!isAuthenticated) {
+    return <Navigate to={ROUTES.authRole} replace />;
   }
 
   if (!user.isSellerVerified) {
-    return <Navigate to="/onboarding/seller-verification" replace />;
+    return <Navigate to={ROUTES.onboardingSellerVerification} replace />;
   }
 
-  return <Navigate to="/seller" replace />;
+  return <Navigate to={ROUTES.sellerRoot} replace />;
 }
 
 function GuestOnly({ children }) {
@@ -86,23 +174,26 @@ function GuestOnly({ children }) {
   const authFlow = useAuthStore((state) => state.authFlow);
   const { pathname } = useLocation();
 
-  if (token && user) {
-    if (
-      authFlow === "signup" &&
-      pathname === "/auth/verify-code" &&
-      !user.isSellerVerified
-    ) {
-      return children;
-    }
+  const isAuthenticated = Boolean(token && user);
+  const needsSellerVerification = Boolean(isAuthenticated && !user.isSellerVerified);
+  const allowSignupVerifyStep =
+    authFlow === "signup" &&
+    pathname === ROUTES.authVerifyCode &&
+    needsSellerVerification;
 
-    if (!user.isSellerVerified) {
-      return <Navigate to="/onboarding/seller-verification" replace />;
-    }
-
-    return <Navigate to="/seller" replace />;
+  if (!isAuthenticated) {
+    return children;
   }
 
-  return children;
+  if (allowSignupVerifyStep) {
+    return children;
+  }
+
+  if (needsSellerVerification) {
+    return <Navigate to={ROUTES.onboardingSellerVerification} replace />;
+  }
+
+  return <Navigate to={ROUTES.sellerRoot} replace />;
 }
 
 function AnimatedRoutes() {
@@ -111,103 +202,25 @@ function AnimatedRoutes() {
   return (
     <AnimatePresence mode="wait">
       <Routes location={location} key={location.pathname}>
-        <Route path="/" element={<HomeRedirect />} />
+        <Route path={ROUTES.home} element={<HomeRedirect />} />
 
-        <Route path="/auth" element={<AuthShell />}>
+        <Route path={ROUTES.authRoot} element={<AuthShell />}>
           <Route
             index
             element={
               <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <Navigate to="/auth/role" replace />
-                  </PageWrap>
-                </Lazy>
+                {withPageShell(<Navigate to={ROUTES.authRole} replace />)}
               </GuestOnly>
             }
           />
 
-          <Route
-            path="role"
-            element={
-              <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <RolePage />
-                  </PageWrap>
-                </Lazy>
-              </GuestOnly>
-            }
-          />
-
-          <Route
-            path="login"
-            element={
-              <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <LoginPage />
-                  </PageWrap>
-                </Lazy>
-              </GuestOnly>
-            }
-          />
-
-          <Route
-            path="signup"
-            element={
-              <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <SignupPage />
-                  </PageWrap>
-                </Lazy>
-              </GuestOnly>
-            }
-          />
-
-          <Route
-            path="forgot-password"
-            element={
-              <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <ForgotPasswordPage />
-                  </PageWrap>
-                </Lazy>
-              </GuestOnly>
-            }
-          />
-
-          <Route
-            path="verify-code"
-            element={
-              <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <VerifyCodePage />
-                  </PageWrap>
-                </Lazy>
-              </GuestOnly>
-            }
-          />
-
-          <Route
-            path="set-password"
-            element={
-              <GuestOnly>
-                <Lazy>
-                  <PageWrap>
-                    <SetPasswordPage />
-                  </PageWrap>
-                </Lazy>
-              </GuestOnly>
-            }
-          />
+          {AUTH_ROUTE_DEFINITIONS.map(({ path, Component }) => (
+            <Route key={path} path={path} element={renderGuestPage(Component)} />
+          ))}
         </Route>
 
         <Route
-          path="/onboarding"
+          path={ROUTES.onboardingRoot}
           element={
             <RequireAuth>
               <RequireRole role="seller">
@@ -218,18 +231,12 @@ function AnimatedRoutes() {
         >
           <Route
             path="seller-verification"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <SellerVerificationPage />
-                </PageWrap>
-              </Lazy>
-            }
+            element={renderPage(SellerVerificationPage)}
           />
         </Route>
 
         <Route
-          path="/seller"
+          path={ROUTES.sellerRoot}
           element={
             <RequireAuth>
               <RequireRole role="seller">
@@ -240,192 +247,23 @@ function AnimatedRoutes() {
             </RequireAuth>
           }
         >
-          <Route
-            index
-            element={
-              <Lazy>
-                <PageWrap>
-                  <DashboardPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
+          {SELLER_ROUTE_DEFINITIONS.map(({ index, key, path, Component }) =>
+            index ? (
+              <Route key={key} index element={renderPage(Component)} />
+            ) : (
+              <Route key={path} path={path} element={renderPage(Component)} />
+            )
+          )}
 
-          <Route
-            path="dashboard"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <DashboardPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="listings"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <ListingsPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="messages"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <MessagesPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="calendar"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <CalendarPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="leads"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <LeadsPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="profile"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <ProfilePage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="profile/edit"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <EditProfilePage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="profile/payments"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <PaymentsInvoicesPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="profile/document-status"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <DocumentsStatusPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="privacy"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <PrivacyControlsPage />
-                </PageWrap>
-              </Lazy>
-            }
-          />
-
-          <Route
-            path="listings/new"
-            element={
-              <Lazy>
-                <PageWrap>
-                  <WizardLayout />
-                </PageWrap>
-              </Lazy>
-            }
-          >
+          <Route path="listings/new" element={renderPage(WizardLayout)}>
             <Route index element={<Navigate to="details" replace />} />
 
-            <Route
-              path="details"
-              element={
-                <Lazy>
-                  <PageWrap>
-                    <DetailsStep />
-                  </PageWrap>
-                </Lazy>
-              }
-            />
-            <Route
-              path="location"
-              element={
-                <Lazy>
-                  <PageWrap>
-                    <LocationStep />
-                  </PageWrap>
-                </Lazy>
-              }
-            />
-            <Route
-              path="pricing"
-              element={
-                <Lazy>
-                  <PageWrap>
-                    <PricingStep />
-                  </PageWrap>
-                </Lazy>
-              }
-            />
-            <Route
-              path="review"
-              element={
-                <Lazy>
-                  <PageWrap>
-                    <ReviewStep />
-                  </PageWrap>
-                </Lazy>
-              }
-            />
-            <Route
-              path="plan"
-              element={
-                <Lazy>
-                  <PageWrap>
-                    <PlanStep />
-                  </PageWrap>
-                </Lazy>
-              }
-            />
+            {WIZARD_ROUTE_DEFINITIONS.map(({ path, Component }) => (
+              <Route key={path} path={path} element={renderPage(Component)} />
+            ))}
           </Route>
 
-          <Route path="*" element={<Navigate to="/seller" replace />} />
+          <Route path="*" element={<Navigate to={ROUTES.sellerRoot} replace />} />
         </Route>
 
         <Route path="*" element={<HomeRedirect />} />
@@ -436,7 +274,7 @@ function AnimatedRoutes() {
 
 export default function AppRoutes() {
   return (
-    <BrowserRouter future={{ v7_startTransition: true, v7_relativeSplatPath: true }}>
+    <BrowserRouter future={ROUTER_FUTURE_FLAGS}>
       <LazyMotion features={domAnimation}>
         <AnimatedRoutes />
       </LazyMotion>
